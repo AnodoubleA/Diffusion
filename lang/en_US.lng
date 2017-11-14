@@ -1,0 +1,98 @@
+error.file.open             = Open file error: ${%s}
+error.file.create           = Create file error: ${%s}
+error.file.read             = Read file error: ${%s}
+error.file.write            = Write file error: ${%s}
+error.file.rename           = Rename file failed, code: [${%d}]. File: ${%s}
+error.dir.create            = Create directory error: ${%s}
+error.file.format.inc       = Incorrect file format, may not encipher by this application: ${%s}
+error.file.hvs.usp          = Un-support file version [${%d}] in file: ${%s}
+error.file.avs.usp          = Un-support algorithm version [${%d}] in file: ${%s}
+error.file.kvs.usp          = Un-support key version [${%d}] in file: ${%s}
+error.file.len.inc          = Incorrect file data-length: ${%s}
+error.file.omiss.wpad       = Miss out-file(or out-file equal in-file), because source-file have padding: \n${%s}
+error.file.omiss.wcov       = In cover option but not do-source, out-file cannot be equal input file: ${%s}
+error.file.dos.pad          = Cannot do-source because source-file have padding: ${%s}
+error.text.format.inc       = Wrong decipher text, may not encipher by this application
+error.text.size.inc         = Wrong group size in text: ${%d}
+error.text.hvs.usp          = Un-support text version :${%d}
+error.text.avs.usp          = Un-support algorithm version: ${%d}
+error.text.kvs.usp          = Un-support key version: ${%d}
+error.text.len.inc          = Incorrect text data-length: [${%d}]
+error.avs.usp               = Un-support  algorithm version: [${%d}]
+error.kvs.usp               = Un-support  key version: [${%d}]
+error.klv.usp               = Un-support  key level: [${%d}]
+error.cfg.bufmlt.oor        = Value of [buffer.multiple] must be in range(${%d} ~ ${%d}), got: ${%d}
+
+warn.lang.file.nfd          = Language file not found: ${%s}
+warn.lang.file.read         = Read language file error: ${%s}
+                                                                                                                            
+tip.error                   = An error happened: ${%s}
+tip.item.error              = Input <Y> to continue, <*> not show this again, <N> abort:
+tip.cmd.unknown             = Unknown command: ${%s}
+tip.ops.unknown             = Unknown option: ${%s}
+tip-line.main               = Input command>
+tip-line.text               = Text cipher>
+tip-line.file               = File cipher>
+tip-line.show.name          = Name
+tip-line.show.value         = Value
+tip-line.help.name          = Options
+tip-line.help.value         = Description
+tip-line.vd.warning         = If you want to ignore those warning, input <Y> to continue:
+tip-line.vd.warning.imp     = If you want to ignore those warning, input <YES> to continue:
+
+help.ops.-m                 = [e|d] Cipher mode (e: encipher,d: decipher)
+help.ops.-l                 = [1~2] Cipher level
+help.ops.-s                 = Group size(bit) (default is 2048(bit), must be 2^N. In (256 ~ 524280)
+help.ops.-i                 = Input (String: for <text>, file or directory: for <file>)
+help.ops.-o                 = Output file(directory). If must write in file, please start with ">"
+help.ops.-k                 = The key.
+help.ops.-f                 = File filter(ex: *.doc),If use regexp, please start with ">"
+help.ops.-kf                = Key format[hex|base64|plain] for decode key, default is plain
+help.ops.-kfl               = Key-file (file absolute path, if no file, set it to <non>. Use first)
+help.ops.-op                = Options [*|p|+|c].(*: Recursion, +: Do source file, p: Padding,c:Cover out-file)
+                                                                                                                            
+help.ops.text               = Encipher(decipher) text
+help.ops.file               = Encipher(decipher) file(directory)
+help.ops.help               = Print help.
+help.ops.show               = Show current options
+help.ops.exit               = Exit current command. At main command, this will exit program
+help.ops.vd                 = Validate options, vd or vde: validate encipher, vdd: validate decipher
+help.ops.enc                = Execute encipher
+help.ops.dec                = Execute Decipher
+                                                                                                                            
+validate.title.error        = Error:
+validate.title.warning      = Warning:
+validate.title.warning.imp  = !!Important warning!!:
+validate.good               = Very good!
+validate.ti.miss            = You have not input any string for encipher(decipher) yet
+validate.fi.miss            = You have not input any file(directory) to encipher(decipher) yet
+validate.fo.miss            = You must be input output directory if not do-source
+validate.fio.equal          = Output cannot be equal input if not do-source: ${%s}
+validate.lv.nan             = Level not an number: ${%s}
+validate.lv.oor             = Level out of range(${%d} ~ ${%d}), your is: ${%d}
+validate.kf.wf              = Unknown key format: ${%s}
+validate.k.miss             = Need key or key-file
+validate.k.short            = Key is too short, batter > ${%d}, your is: ${%d}
+validate.kfl.nfd            = Key-file not exists: ${%s}
+validate.kfl.short          = Key-file is too short, batter > ${%d}
+validate.kfl.inc            = Key file must a file: ${%s}
+validate.s.nan              = Group size not an number: ${%s}
+validate.s.inc              = Incorrect group size, must be 2^N (N=1,2,3...), input is: ${%d}
+validate.s.oor              = Group size out of range(${%d} ~ ${%d}), input is: ${%d}
+validate.ops.dd             = <+> and <x> definitely not exists at same time: ${%s}
+validate.ops.dp             = <+> and <p> definitely not exists at same time: ${%s}
+validate.ops.dp             = This is serious, because this option cannot be revoke: ${%s}
+validate.fst.toob           = File smash times is too big, must <= ${%d}. Got: ${%d}
+validate.fst.toos           = File smash times is too small, batter >= ${%d}. Got: ${%d}
+validate.fl.nfd             = Input file(directory) not found from your input: ${%s}
+validate.reg.inc            = Incorrect regexp expression: ${%s}
+
+cipher.scheduler.begin      = File count: ${%d}, begin...
+cipher.scheduler.end        = Process completed. Total time ${t+,HH:mm:ss:SSS}
+cipher.text.begin           =
+cipher.text.end             = OK>
+cipher.file.begin           = -> ${%s} [${d,%.3f}] [${%d}/${%d}]
+cipher.file.end             = => ${%s} [${d,%.3f}] [${t+,HH:mm:ss:SSS}]
+cipher.item.error           = ${%s}
+cipher.item.completed       =
+                                 
