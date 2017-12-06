@@ -5,9 +5,9 @@
 #ifndef DIFFUSION_INFO_FACTORY_H
 #define DIFFUSION_INFO_FACTORY_H
 
-#include "info.h"
+#include "../../cipher/info.h"
 #include "info_v1.h"
-#include "../module/i18n/lang.h"
+#include "../i18n/lang.h"
 
 namespace lc{
 

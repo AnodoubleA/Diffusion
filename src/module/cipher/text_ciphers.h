@@ -5,10 +5,10 @@
 #ifndef DIFFUSION_TEXTENCIPHER_H
 #define DIFFUSION_TEXTENCIPHER_H
 
-#include "structs.h"
-#include "BufferCipher.h"
+#include "../../cipher/structs.h"
+#include "SegmentCipher.h"
 #include "buffer_ciphers.h"
-#include "../tool/converter.h"
+#include "../../tool/converter.h"
 #include "info_factory.h"
 #include "info_handler.h"
 

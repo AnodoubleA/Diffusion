@@ -5,7 +5,7 @@
 #ifndef DIFFUSION_INFOV1_H
 #define DIFFUSION_INFOV1_H
 
-#include "info.h"
+#include "../../cipher/info.h"
 #include "CipConfig.h"
 
 namespace lc{

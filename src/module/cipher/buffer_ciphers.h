@@ -10,8 +10,8 @@
 #include "Padding.h"
 #include "paddings.h"
 #include "KeyHandler.h"
-#include "Contact.h"
-#include "BufferCipher.h"
+#include "../../cipher/Contact.h"
+#include "SegmentCipher.h"
 #include "algorithm_ciphers.h"
 
 namespace lc{

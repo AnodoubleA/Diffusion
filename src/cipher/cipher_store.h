@@ -8,7 +8,7 @@
 
 #include "filters.h"
 #include "items.h"
-#include "text_ciphers.h"
+#include "../module/cipher/text_ciphers.h"
 #include "Scheduler.h"
 
 namespace lc{

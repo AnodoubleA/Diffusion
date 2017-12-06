@@ -7,10 +7,10 @@
 
 #include <cmath>
 #include "Padding.h"
-#include "../module/random/Random.h"
-#include "Consts.h"
-#include "../module/cmds/options.h"
-#include "../module/random/randoms.h"
+#include "../random/Random.h"
+#include "../../cipher/Consts.h"
+#include "../cmds/options.h"
+#include "../random/randoms.h"
 
 namespace lc{
 

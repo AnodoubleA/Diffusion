@@ -6,23 +6,23 @@
 #define DIFFUSION_BUFFER_FACTORY_H
 
 #include <vector>
-#include "BufferCipher.h"
-#include "../tool/funs.h"
+#include "SegmentCipher.h"
+#include "../../tool/funs.h"
 #include "buffer_ciphers.h"
 #include "parallel_buffer_cipher.h"
 
 namespace lc{
-    extern std::vector<BufferCipher*> buffer_map;
+    extern std::vector<SegmentCipher*> buffer_map;
 
     class BufferCipherFactory {
     public:
-        static BufferCipher* make(int options) {
-            for (BufferCipher* item:buffer_map) {
+        static SegmentCipher* make(int options) {
+            for (SegmentCipher* item:buffer_map) {
                 if (item->support(options) && item->lock()) {
                     return item;
                 }
             }
-            BufferCipher* instance;
+            SegmentCipher* instance;
             if (contains(options, CO::ENCIPHER, CO::MULTICORE)) {
                 instance = new EncipherBuffer();
                 goto end;

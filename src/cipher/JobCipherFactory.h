@@ -8,7 +8,7 @@
 #include "../tool/converter.h"
 #include "../tool/tools.h"
 #include "../core/DiffusionException.h"
-#include "FileCipher.h"
+#include "../module/cipher/FileCipher.h"
 #include "Worker.h"
 #include "workers.h"
 #include "worker_factory.h"

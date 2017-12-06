@@ -6,18 +6,18 @@
 #include "../module/random/Random.h"
 #include "../module/fs/FileSmash.h"
 #include "../module/fs/file_smash_factory.h"
-#include "CipConfig.h"
-#include "KeyHandler.h"
-#include "info_factory.h"
-#include "info_handler.h"
+#include "../module/cipher/CipConfig.h"
+#include "../module/cipher/KeyHandler.h"
+#include "../module/cipher/info_factory.h"
+#include "../module/cipher/info_handler.h"
 #include "../module/random/seed_factory_impl.h"
 #include "../core/static_init.h"
-#include "BufferCipher.h"
+#include "../module/cipher/SegmentCipher.h"
 
 namespace lc{
     FileSmashFactory* fileSmash = nullptr;
 
-    std::vector<BufferCipher*> buffer_map;
+    std::vector<SegmentCipher*> buffer_map;
 
     FileSmashFactory& getFileSmashFactory() {
         if (fileSmash == nullptr) {

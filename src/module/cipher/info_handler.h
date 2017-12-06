@@ -5,7 +5,7 @@
 #ifndef DIFFUSION_INFO_HANDLER_H
 #define DIFFUSION_INFO_HANDLER_H
 
-#include "info.h"
+#include "../../cipher/info.h"
 #include "info_factory.h"
 
 namespace lc{

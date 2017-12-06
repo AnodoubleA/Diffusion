@@ -5,10 +5,9 @@
 #ifndef DIFFUSION_KEYHANDLER_H
 #define DIFFUSION_KEYHANDLER_H
 
-#include "structs.h"
-#include "../core/DiffusionException.h"
-#include "version.h"
-#include "reusable.h"
+#include "../../cipher/structs.h"
+#include "../../core/DiffusionException.h"
+#include "../../cipher/version.h"
 
 namespace lc{
     class KeyHandler : public Version, public Reusable {

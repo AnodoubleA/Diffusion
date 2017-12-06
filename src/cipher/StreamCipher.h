@@ -7,9 +7,9 @@
 
 #include <istream>
 #include "structs.h"
-#include "Padding.h"
-#include "paddings.h"
-#include "KeyHandler.h"
+#include "../module/cipher/Padding.h"
+#include "../module/cipher/paddings.h"
+#include "../module/cipher/KeyHandler.h"
 #include "../core/DiffusionException.h"
 
 namespace lc{

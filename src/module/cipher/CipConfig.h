@@ -6,9 +6,9 @@
 #define DIFFUSION_CIPCONFIG_H
 
 
-#include "../module/fs/FileSmash.h"
-#include "algorithm_factory.h"
-#include "../module/fs/file_smash_factory.h"
+#include "../fs/FileSmash.h"
+#include "AlgorithmFactory.h"
+#include "../fs/file_smash_factory.h"
 #include "key_handler_factory.h"
 
 namespace lc{

@@ -8,7 +8,7 @@
 #include <cmath>
 #include "KeyHandler.h"
 #include "key_box.h"
-#include "../tool/funs.h"
+#include "../../tool/funs.h"
 
 namespace lc{
     class AbstractKeyHandler : public KeyHandler, public AbstractReusable {

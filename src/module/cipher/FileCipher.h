@@ -5,9 +5,9 @@
 #ifndef DIFFUSION_FILECIPHER_H
 #define DIFFUSION_FILECIPHER_H
 
-#include "../core/DiffusionException.h"
-#include "structs.h"
-#include "version.h"
+#include "../../core/DiffusionException.h"
+#include "../../cipher/structs.h"
+#include "../../cipher/version.h"
 
 namespace lc{
 

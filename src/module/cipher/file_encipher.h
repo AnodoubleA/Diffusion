@@ -2,8 +2,9 @@
 // Created by Alice on 2017.03.03.
 //
 
-#ifndef DIFFUSION_FILE_DECIPHERS_H
-#define DIFFUSION_FILE_DECIPHERS_H
+#pragma once
+#ifndef DIFFUSION_FILE_ENCIPHERS_H
+#define DIFFUSION_FILE_ENCIPHERS_H
 
 #include <list>
 #include <istream>
@@ -12,51 +13,59 @@
 #include "FileCipher.h"
 #include "buffer_ciphers.h"
 #include "stream_ciphers.h"
-#include "Scheduler.h"
-#include "../module/cmds/options.h"
-#include "../tool/tools.h"
-#include "../module/fm/filemapping.h"
+#include "../../cipher/Scheduler.h"
+#include "../cmds/options.h"
+#include "../../tool/tools.h"
+#include "../fm/filemapping.h"
 #include "AbstractFileCipher.h"
+#include "../../tool/funs.h"
 #include "CipConfig.h"
+#include "info_factory.h"
 #include "info_handler.h"
+#include "../fm/fm_factory.h"
+#include "parallel_buffer_cipher.h"
+#include "buffer_factory.h"
 
 namespace lc{
-    /**
-     * A file decipher use file mapping, very fast, but only process source file.
-     * So, this cannot support padding.
-     */
-    class MappedFileDecipher : public AbstractFileCipher {
+
+    class MappedFileEncipher : public AbstractFileCipher {
     protected:
-        int A_VSR = 0;
-        DecipherBuffer* cipher = nullptr;
+        FileInfoHandler infoHandler;
+        EncipherBuffer* cipher;
     public:
         void init(Init& init, Info& info, BufferContact* contact) override {
+            if (algorithm == nullptr) {
+                algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
+            }
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);
             }
-            if (algorithm == nullptr || A_VSR != info.algorithm) {
-                freeInstance(algorithm);
-                algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
-            }
             AbstractFileCipher::init(init, info, contact);
             handler->init(init, info);
-            cipher = (DecipherBuffer*) BufferCipherFactory::make(info.options);
-            cipher->setAlgorithm(*algorithm);
+            cipher = (EncipherBuffer*) BufferCipherFactory::make(info.options);
             cipher->setHandler(*handler);
             cipher->setPadding(padding);
+            cipher->setAlgorithm(*algorithm);
             cipher->init(init, info);
-            A_VSR = info.algorithm;
+        }
+
+        void deinit() override {
+            AbstractFileCipher::deinit();
+            cipher->deinit();
         }
 
         uint64 run(const std::string& in, const std::string& out)throw(DiffusionException) {
             FileMapping& map = *FMFactory::make();
-            uint64 size_cip = 0;
+            uint64 size_new = 0;
             try {
+                int N = it.N, info_len = infoHandler.length();
                 int64 size_file = map.init(in, FM::OPEN, FM::READ | FM::WRITE);
-                map.make(0);
+                uint64 size_cip = (uint64) std::ceil(1.0 * size_file / N) * N;
+                size_new = size_cip + info_len;
+                io.diff = size_cip - size_file;
+                map.make(size_new);
                 uint64 cache = (uint64) (allocationGranularity * BUFFER_MULTIPLE * 2);
-                size_cip = size_file - fileInfoHandler.length();
                 uint64 round = size_cip / cache;
                 uint64 remainder = size_cip % cache;
                 uint64 offset = 0;
@@ -70,39 +79,55 @@ namespace lc{
                 }
                 if (remainder > 0) {
                     buf = map.map(offset, remainder, FM::WRITE);
+                    padding->padding(buf + (remainder - io.diff), io.diff);
                     cipher->run(buf, remainder);
                     map.unmap(buf);
-                    contact->addDone(remainder + fileInfoHandler.length());
+                    contact->addDone(remainder - io.diff);
                 }
+                round = size_new / allocationGranularity;
+                remainder = size_new % allocationGranularity;
+                if (remainder < info_len) {
+                    round -= 1;
+                    remainder += allocationGranularity;
+                }
+                buf = map.map(round * allocationGranularity, remainder, FM::WRITE);
+                infoHandler.write(buf + (remainder - info_len), io);
+                map.unmap(buf);
             } catch (DiffusionException& e) {
-                map.deinit();
+                map.deinit(0);
                 throw e;
             }
-            map.deinit(size_cip - io.diff);
-            return size_cip - io.diff;
+            map.deinit(0);
+            return size_new;
         }
+
     };
 
     //====================================================================================================================
 
-    /**
-     * Power-ed file decipher use file mapping. but not support padding.
-     */
-    class PowerMappedFileDecipher : public MappedFileDecipher {
-    protected:
+    class PowerMappedFileEncipher : public MappedFileEncipher {
+    public:
+        void deinit() override {
+            MappedFileEncipher::deinit();
+            cipher->deinit();
+        }
+
         uint64 run(const std::string& in, const std::string& out) throw(DiffusionException) {
             FileMapping& imap = *FMFactory::make();
             FileMapping& omap = *FMFactory::make();
-            uint64 size_cip = 0;
+            uint64 size_out = 0;
             try {
+                int N = it.N, info_len = infoHandler.length();
                 int64 size_in = imap.init(in, FM::OPEN, FM::READ);
                 imap.make(0);
-                size_cip = size_in - fileInfoHandler.length();
+                uint64 size_cip = (uint64) (std::ceil(1.0 * size_in / N) * N);
+                size_out = size_cip + info_len;
+                io.diff = size_cip - size_in;
                 omap.init(out, FM::CREATE, FM::READ | FM::WRITE);
-                omap.make(size_cip);
-                uint64 cache = allocationGranularity * BUFFER_MULTIPLE;
-                uint64 round = size_cip / cache;
-                uint64 remainder = size_cip % cache;
+                omap.make(size_out);
+                uint64 cache = (allocationGranularity * BUFFER_MULTIPLE);
+                uint64 round = size_in / cache;
+                uint64 remainder = size_in % cache;
                 uint64 offset = 0;
                 byte* buf_in = nullptr;
                 byte* buf_out = nullptr;
@@ -117,51 +142,55 @@ namespace lc{
                     contact->addDone(cache);
                 }
                 if (remainder > 0) {
+                    uint64 len = size_cip % cache;
                     buf_in = imap.map(offset, remainder, FM::READ);
-                    buf_out = omap.map(offset, remainder, FM::WRITE);
+                    buf_out = omap.map(offset, len, FM::WRITE);
                     memcpy(buf_out, buf_in, remainder);
-                    cipher->run(buf_out, remainder);
+                    padding->padding(buf_out + (len - io.diff), io.diff);
+                    cipher->run(buf_out, len);
                     imap.unmap(buf_in);
                     omap.unmap(buf_out);
-                    contact->addDone(remainder + fileInfoHandler.length());
+                    contact->addDone(remainder);
                 }
+                round = size_out / allocationGranularity;
+                remainder = size_out % allocationGranularity;
+                if (remainder < info_len) {
+                    round -= 1;
+                    remainder += allocationGranularity;
+                }
+                buf_out = omap.map(round * allocationGranularity, remainder, FM::WRITE);
+                infoHandler.write(buf_out + (remainder - info_len), io);
+                imap.unmap(buf_in);
+                omap.unmap(buf_out);
             } catch (DiffusionException& e) {
                 imap.deinit();
                 omap.deinit();
                 throw e;
             }
             imap.deinit();
-            omap.deinit(size_cip - io.diff);
-            return size_cip - io.diff;
+            omap.deinit();
+            return size_out;
         }
+
     };
 
-    //====================================================================================================================
-    /**
-     * Super file decipher, use io-stream, support all functions, but not fast.
-     */
-    class StreamFileDecipher : public AbstractFileCipher {
-        DecipherStream worker;
-        int A_VSR = -1;
+    class StreamFileEncipher : public AbstractFileCipher {
+        EncipherStream worker;
+        FileInfoHandler infoHandler;
     public:
-        StreamFileDecipher() {
-            padding = PaddingFactory::make(CO::PADDING);
-        }
-
         void init(Init& init, Info& info, BufferContact* contact) override {
+            if (algorithm == nullptr) {
+                algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
+            }
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);
             }
-            if (algorithm == nullptr || A_VSR != info.algorithm) {
-                freeInstance(algorithm);
-                algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
-            }
             AbstractFileCipher::init(init, info, contact);
             handler->init(init, info);
+            worker.setHandler(*handler);
             worker.setAlgorithm(*algorithm);
             worker.setPadding(padding);
-            worker.setHandler(*handler);
             worker.init(init, info, contact);
         }
 
@@ -170,6 +199,7 @@ namespace lc{
             worker.deinit();
         }
 
+    public:
         uint64 run(const std::string& in, const std::string& out) throw(DiffusionException) {
             std::ifstream fin(in, std::ios::in | std::ios::binary);
             std::ofstream fout(out, std::ios::out | std::ios::binary);
@@ -182,8 +212,14 @@ namespace lc{
                     throw DiffusionException(I18N->gf(ERROR_FILE_CREATE, out.c_str()));
                 }
                 uint64 length = get_length(fin);
-                size = worker.run(fin, fout, length - fileInfoHandler.length());
-                contact->addDone(fileInfoHandler.length());
+                int real = it.N - padding->compute(it.N);
+                int remainder = length % real;
+                io.diff = remainder == 0 ? 0 : (real - remainder);
+                size = worker.run(fin, fout, length);
+                int info_len = infoHandler.length();
+                byte buf[info_len];
+                infoHandler.write(buf, io);
+                fout.write((char*) buf, info_len);
             } catch (DiffusionException& e) {
                 fin.close();
                 fout.close();
@@ -191,8 +227,10 @@ namespace lc{
             }
             fin.close();
             fout.close();
-            return size;
+            return size + fileInfoHandler.length();
         }
+
+
     };
 }
-#endif //DIFFUSION_FILE_DECIPHERS_H
+#endif //DIFFUSION_FILE_CIPHERS_H

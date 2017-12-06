@@ -5,7 +5,7 @@
 #ifndef DIFFUSION_BLOCKCIPHERPADDING_H
 #define DIFFUSION_BLOCKCIPHERPADDING_H
 
-#include "../core/types.h"
+#include "../../core/types.h"
 
 namespace lc{
     class Padding {

@@ -5,9 +5,9 @@
 #ifndef DIFFUSION_STREAMCIPHERS_H
 #define DIFFUSION_STREAMCIPHERS_H
 
-#include "StreamCipher.h"
+#include "../../cipher/StreamCipher.h"
 #include "Padding.h"
-#include "Contact.h"
+#include "../../cipher/Contact.h"
 #include "paddings.h"
 #include "buffer_ciphers.h"
 #include "CipConfig.h"

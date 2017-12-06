@@ -8,7 +8,7 @@
 #include "FileCipher.h"
 #include "Padding.h"
 #include "KeyHandler.h"
-#include "../module/config/Config.h"
+#include "../config/Config.h"
 #include "CipConfig.h"
 
 namespace lc{

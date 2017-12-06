@@ -17,7 +17,7 @@
 #include "../core/DiffusionException.h"
 #include "../module/config/Config.h"
 #include "../cipher/filter.h"
-#include "../cipher/FileCipher.h"
+#include "../module/cipher/FileCipher.h"
 #include "../cipher/items.h"
 #include "converter.h"
 #include "tools.h"
