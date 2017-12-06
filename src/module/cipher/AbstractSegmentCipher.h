@@ -7,14 +7,17 @@
 
 #include "SegmentCipher.h"
 #include "KeyHandler.h"
+#include "Padding.h"
+#include "Algorithm.h"
 
 namespace lc {
-    class AbstractSegmentCipher : public SegmentCipher, public AbstractReusable {
+    class AbstractSegmentCipher : public SegmentCipher{
     protected:
         int N = 0, L = 0, fill = 0;
         Padding* padding = nullptr;
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
+        Boollock locker;
     public:
 
         void setPadding(Padding* padding) {
@@ -43,11 +46,11 @@ namespace lc {
         }
 
         bool lock() override {
-            return AbstractReusable::lock();
+            return locker.lock();
         }
 
         void unlock() override {
-            AbstractReusable::unlock();
+            locker.unlock();
         }
     };
 }

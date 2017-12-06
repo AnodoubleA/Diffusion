@@ -7,7 +7,7 @@
 namespace lc{
 #define SPACE ' '
 #define TAB '\t'
-#define  TRANS_MEAN '\\'
+#define TRANS_MEAN '\\'
 #define ENTER '\n'
 #define DEF_WRAP '"'
 #define LINE_HEAD "\t"

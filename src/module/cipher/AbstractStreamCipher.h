@@ -1,29 +1,20 @@
 //
-// Created by Alice on 2017.03.01.
+// Created by Angel on 2017/12/6.
 //
-#pragma once
-#ifndef DIFFUSION_STREAMCIPHER_H
-#define DIFFUSION_STREAMCIPHER_H
 
-#include <istream>
-#include "structs.h"
-#include "../module/cipher/Padding.h"
-#include "../module/cipher/paddings.h"
-#include "../module/cipher/KeyHandler.h"
-#include "../core/DiffusionException.h"
+#ifndef DIFFUSION_ABSTRACTSTREAMCIPHER_H
+#define DIFFUSION_ABSTRACTSTREAMCIPHER_H
 
-namespace lc{
+#include "StreamCipher.h"
+#include "Algorithm.h"
+#include "Padding.h"
+#include "KeyHandler.h"
 
-    class StreamCipher {
-    public:
-        virtual void init(Init& init, Info& info, BufferContact* contact) = 0;
+extern int allocationGranularity;
+extern int BUFFER_MULTIPLE;
 
-        virtual void deinit() = 0;
-
-        virtual uint64 run(std::istream& in, std::ostream& out, uint64 length) throw(DiffusionException) = 0;
-    };
-
-    class AbstractStreamCrypto : public StreamCipher {
+namespace lc {
+    class AbstractStreamCipher : public StreamCipher {
     protected:
         byte* buf_in = nullptr;
         byte* buf_out = nullptr;
@@ -36,12 +27,12 @@ namespace lc{
         int N = 0, fill = 0, cache;
         bool pad = false;
     public:
-        virtual ~AbstractStreamCrypto() {
+        virtual ~AbstractStreamCipher() {
             delete[](buf_in);
             delete[](buf_out);
         }
 
-        AbstractStreamCrypto() {
+        AbstractStreamCipher() {
             cache = allocationGranularity * BUFFER_MULTIPLE;
             buf_in = new byte[cache];
             buf_out = new byte[cache];
@@ -59,14 +50,14 @@ namespace lc{
             this->algorithm = &algorithm;
         }
 
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        virtual void init(Init& init, Info& info, BufferContact* contact) {
             this->N = init.N;
             this->it = init;
             this->io = info;
             this->contact = contact;
             fill = padding == nullptr ? 0 : padding->compute(N);
-            pad = contains(info.options, CO::PADDING);
+            pad = (info.options & CO::PADDING) != 0;
         }
     };
 }
-#endif //DIFFUSION_STREAMCIPHER_H
+#endif //DIFFUSION_ABSTRACTSTREAMCIPHER_H

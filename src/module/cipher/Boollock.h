@@ -1,19 +1,14 @@
 //
-// Created by Alice on 2017.03.22.
+// Created by Angel on 2017/12/6.
 //
 
-#ifndef DIFFUSION_REUSABLE_H
-#define DIFFUSION_REUSABLE_H
+#ifndef DIFFUSION_BOOLLOCK_H
+#define DIFFUSION_BOOLLOCK_H
 
-namespace lc{
-    class Reusable {
-    public:
-        virtual bool lock() = 0;
+#include "../../core/Reusable.h"
 
-        virtual void unlock() = 0;
-    };
-
-    class AbstractReusable : public Reusable {
+namespace lc {
+    class BoolLock : public Reusable {
     protected:
         bool idle = true;
     public:
@@ -29,4 +24,4 @@ namespace lc{
         }
     };
 }
-#endif //DIFFUSION_REUSEFUL_H
+#endif //DIFFUSION_BOOLLOCK_H

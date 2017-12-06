@@ -14,7 +14,7 @@
 
 #include <string>
 #include "../../cipher/Consts.h"
-#include "../../cipher/Contact.h"
+#include "../cipher/Contact.h"
 #include "../../mvc/cmd/Option.h"
 #include "../../core/types.h"
 #include "../../cipher/CipherModel.h"

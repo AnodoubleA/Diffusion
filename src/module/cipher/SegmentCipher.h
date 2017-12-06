@@ -2,16 +2,10 @@
 // Created by Alice on 2017.03.01.
 //
 #pragma once
-#ifndef DIFFUSION_BUFFERCIPHER_H
-#define DIFFUSION_BUFFERCIPHER_H
+#ifndef DIFFUSION_SEGMENTCIPHER_H
+#define DIFFUSION_SEGMENTCIPHER_H
 
-#include "../../core/Object.h"
-#include "../../cipher/structs.h"
-#include "../../cipher/Consts.h"
-#include "Padding.h"
-#include "../cmds/options.h"
 #include "../../core/types.h"
-#include "Algorithm.h"
 
 namespace lc{
     class SegmentCipher : public Reusable {
@@ -22,7 +16,7 @@ namespace lc{
 
         virtual void deinit() = 0;
 
-        virtual bool support(int options) = 0;
+        virtual bool support(unit64 options) = 0;
 
         /**
          * Process a buffer, may have padding.
@@ -43,4 +37,4 @@ namespace lc{
         virtual uint64 run(byte* in, uint64 length) = 0;
     };
 }
-#endif //DIFFUSION_BUFFERCIPHER_H
+#endif //DIFFUSION_SEGMENTCIPHER_H

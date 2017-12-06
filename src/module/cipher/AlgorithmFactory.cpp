@@ -3,7 +3,7 @@
 //
 #include "Algorithm.h"
 #include "AlgorithmFactory.h"
-#include "DefaultAlgorithm.h"
+#include "algorithms/DC140713Encipher.h"
 
 namespace lc {
     std::vector<Algorithm*> vector;

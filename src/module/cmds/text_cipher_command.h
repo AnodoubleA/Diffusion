@@ -8,7 +8,7 @@
 #include "../../mvc/cmd/Command.h"
 #include "MvcCommand.h"
 #include "options.h"
-#include "../../cipher/Contact.h"
+#include "../cipher/Contact.h"
 #include "../cipher/file_encipher.h"
 #include "../../cipher/schedulers.h"
 #include "../cipher/text_ciphers.h"

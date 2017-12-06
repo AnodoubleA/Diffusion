@@ -17,7 +17,7 @@ namespace lc{
         Padding* padding = getPadding();
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
-        BufferContact* contact;
+        BufferMessenger* contact;
         Info io;
         Init it;
 
@@ -31,7 +31,7 @@ namespace lc{
             return 1;
         }
 
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        void init(Init& init, Info& info, BufferMessenger* contact) override {
             this->contact = contact;
             io = info;
             it = init;

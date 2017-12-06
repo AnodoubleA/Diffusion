@@ -9,7 +9,7 @@
 #include "../../core/types.h"
 #include "../../core/Version.h"
 #include "../../core/Version.h"
-#include "../../core/reusable.h"
+#include "../../core/Reusable.h"
 
 namespace lc {
     class Algorithm : public Version, public Reusable {
@@ -17,11 +17,9 @@ namespace lc {
     public:
         virtual void init(Init& init) = 0;
 
-        virtual void enc(byte X[], byte* K[]) = 0;
+        virtual void run(byte X[], byte* K[]) = 0;
 
-        virtual void dec(byte X[], byte* K[]) = 0;
-
-        virtual int algorithm() = 0;
+        virtual int identity() = 0;
     };
 }
 #endif //DIFFUSION_UNIT_H

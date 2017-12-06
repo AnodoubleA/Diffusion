@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
 set(SOURCE_FILES
         src/core/
         src/module/cipher/
+#        src/module/cipher/streams/
        )
 
 add_executable(Diffusion ${SOURCE_FILES})

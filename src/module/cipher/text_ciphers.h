@@ -7,7 +7,7 @@
 
 #include "../../cipher/structs.h"
 #include "SegmentCipher.h"
-#include "buffer_ciphers.h"
+#include "segments/serial_segment_cipher.h"
 #include "../../tool/converter.h"
 #include "info_factory.h"
 #include "info_handler.h"

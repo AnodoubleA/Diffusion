@@ -8,35 +8,38 @@
 #include <math.h>
 #include "Init.h"
 #include "Algorithm.h"
-#include "../../core/reusable.h"
+#include "Boollock.h"
 
 namespace lc {
-    class AbstractAlgorithm : public Algorithm, public AbstractReusable {
+    class AbstractAlgorithm : public Algorithm{
     protected:
         int R;          //round
         int N;          //total length
         int H;          //number size
-        byte* S_BOX = nullptr;
-        byte* I_BOX = nullptr;
+        byte* BOX = nullptr;
+        Boollock locker;
     public:
         void init(Init& init) override {
             R = init.R;
             N = init.N;
             H = N >> 1;
-            S_BOX = init.BOX;
-            I_BOX = init.BOS;
+            BOX = init.BOX;
         }
 
         int version() override {
             return 1;
         }
 
+        int identity() override {
+            return 1;
+        }
+
         bool lock() override {
-            return AbstractReusable::lock();
+            locker.lock();
         }
 
         void unlock() override {
-            AbstractReusable::unlock();
+            locker.unlock();
         }
     };
 }

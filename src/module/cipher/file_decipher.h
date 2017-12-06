@@ -10,8 +10,8 @@
 #include <fstream>
 #include <afxres.h>
 #include "FileCipher.h"
-#include "buffer_ciphers.h"
-#include "stream_ciphers.h"
+#include "segments/serial_segment_cipher.h"
+#include "streams/stream_cipher.h"
 #include "../../cipher/Scheduler.h"
 #include "../cmds/options.h"
 #include "../../tool/tools.h"
@@ -30,7 +30,7 @@ namespace lc{
         int A_VSR = 0;
         DecipherBuffer* cipher = nullptr;
     public:
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        void init(Init& init, Info& info, BufferMessenger* contact) override {
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);
@@ -141,14 +141,14 @@ namespace lc{
      * Super file decipher, use io-stream, support all functions, but not fast.
      */
     class StreamFileDecipher : public AbstractFileCipher {
-        DecipherStream worker;
+        StreamDecipher worker;
         int A_VSR = -1;
     public:
         StreamFileDecipher() {
             padding = PaddingFactory::make(CO::PADDING);
         }
 
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        void init(Init& init, Info& info, BufferMessenger* contact) override {
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);

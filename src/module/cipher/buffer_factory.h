@@ -8,8 +8,8 @@
 #include <vector>
 #include "SegmentCipher.h"
 #include "../../tool/funs.h"
-#include "buffer_ciphers.h"
-#include "parallel_buffer_cipher.h"
+#include "segments/serial_segment_cipher.h"
+#include "segments/parallel_segment_cipher.h"
 
 namespace lc{
     extern std::vector<SegmentCipher*> buffer_map;

@@ -11,8 +11,8 @@
 #include <fstream>
 #include <afxres.h>
 #include "FileCipher.h"
-#include "buffer_ciphers.h"
-#include "stream_ciphers.h"
+#include "segments/serial_segment_cipher.h"
+#include "streams/stream_cipher.h"
 #include "../../cipher/Scheduler.h"
 #include "../cmds/options.h"
 #include "../../tool/tools.h"
@@ -23,7 +23,7 @@
 #include "info_factory.h"
 #include "info_handler.h"
 #include "../fm/fm_factory.h"
-#include "parallel_buffer_cipher.h"
+#include "segments/parallel_segment_cipher.h"
 #include "buffer_factory.h"
 
 namespace lc{
@@ -33,7 +33,7 @@ namespace lc{
         FileInfoHandler infoHandler;
         EncipherBuffer* cipher;
     public:
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        void init(Init& init, Info& info, BufferMessenger* contact) override {
             if (algorithm == nullptr) {
                 algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
             }
@@ -175,10 +175,10 @@ namespace lc{
     };
 
     class StreamFileEncipher : public AbstractFileCipher {
-        EncipherStream worker;
+        StreamEncipher worker;
         FileInfoHandler infoHandler;
     public:
-        void init(Init& init, Info& info, BufferContact* contact) override {
+        void init(Init& init, Info& info, BufferMessenger* contact) override {
             if (algorithm == nullptr) {
                 algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
             }
