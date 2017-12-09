@@ -14,7 +14,7 @@
 #include "../module/fs/FileSmash.h"
 #include "../module/fs/file_smash_factory.h"
 #include "item_listener.h"
-#include "../module/cipher/info_factory.h"
+#include "../module/cipher/InfoHandlerFactory.h"
 #include "../tool/file_handler.h"
 
 namespace lc{

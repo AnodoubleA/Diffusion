@@ -8,11 +8,19 @@
 
 #include <exception>
 #include <stdexcept>
+#include "types.h"
 
-namespace lc{
+namespace lc {
     class DiffusionException : public std::runtime_error {
+        uint64 code;
     public:
-        DiffusionException(const std::string& __arg) : runtime_error(__arg) {}
+        DiffusionException(const std::string& __arg) : runtime_error(__arg) {
+
+        }
+
+        DiffusionException(uint64 code, const std::string& __arg) : runtime_error(__arg) {
+            this->code = code;
+        }
     };
 }
 

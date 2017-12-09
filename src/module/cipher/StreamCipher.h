@@ -14,7 +14,7 @@ namespace lc{
 
     class StreamCipher {
     public:
-        virtual void init(Init& init, Info& info, BufferContact* contact) = 0;
+        virtual void init(SessionConfig* config, BufferContact* contact) = 0;
 
         virtual void deinit() = 0;
 

@@ -8,8 +8,8 @@
 #include "../module/fs/file_smash_factory.h"
 #include "../module/cipher/CipConfig.h"
 #include "../module/cipher/KeyHandler.h"
-#include "../module/cipher/info_factory.h"
-#include "../module/cipher/info_handler.h"
+#include "../module/cipher/InfoHandlerFactory.h"
+#include "../module/cipher/infos/info_handler_help.h"
 #include "../module/random/seed_factory_impl.h"
 #include "../core/static_init.h"
 #include "../module/cipher/SegmentCipher.h"
@@ -57,9 +57,9 @@ namespace lc{
         return *keyHandlerFactory;
     }
 
-    InfoFactory* infoFactory;
+    InfoHandlerFactory* infoFactory;
 
-    InfoFactory& getInfoFactory() {
+    InfoHandlerFactory& getInfoFactory() {
         if (infoFactory == nullptr) {
             infoFactory = new CachedInfoFactory();
         }

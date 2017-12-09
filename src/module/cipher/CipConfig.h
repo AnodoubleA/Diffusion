@@ -9,7 +9,7 @@
 #include "../fs/FileSmash.h"
 #include "AlgorithmFactory.h"
 #include "../fs/file_smash_factory.h"
-#include "key_handler_factory.h"
+#include "KeyHandlerFactory.h"
 
 namespace lc{
     typedef class CipConfig {

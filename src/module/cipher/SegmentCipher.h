@@ -7,34 +7,19 @@
 
 #include "../../core/types.h"
 
-namespace lc{
-    class SegmentCipher : public Reusable {
+#include "Segment.h"
+#include "SessionConfig.h"
+
+namespace lc {
+    class SegmentCipher : public Segment, public Reusable {
 
     public:
 
-        virtual void init(Init& init, Info& info) = 0;
+        virtual void init(SessionConfig* config) = 0;
 
         virtual void deinit() = 0;
 
         virtual bool support(unit64 options) = 0;
-
-        /**
-         * Process a buffer, may have padding.
-         * @param in
-         * @param out
-         * @param length input length
-         * @return output length
-         */
-        virtual uint64 run(byte* in, byte* out, uint64 length) = 0;
-
-        /**
-         * Process a buffer.
-         * run with no padding.
-         * @param in
-         * @param length input length
-         * @return output length
-         */
-        virtual uint64 run(byte* in, uint64 length) = 0;
     };
 }
 #endif //DIFFUSION_SEGMENTCIPHER_H

@@ -9,36 +9,35 @@
 #include "KeyHandler.h"
 #include "Padding.h"
 #include "Algorithm.h"
+#include "Boollock.h"
 
 namespace lc {
-    class AbstractSegmentCipher : public SegmentCipher{
+    class AbstractSegmentCipher : public SegmentCipher {
     protected:
         int N = 0, L = 0, fill = 0;
+        SessionConfig* config = nullptr;
         Padding* padding = nullptr;
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
         Boollock locker;
     public:
 
-        void setPadding(Padding* padding) {
-            this->padding = padding;
+        virtual ~AbstractSegmentCipher() {
+            delete config;
         }
 
-        void setHandler(KeyHandler& handler) {
-            this->handler = &handler;
-        }
-
-        void setAlgorithm(Algorithm& algorithm) {
-            this->algorithm = &algorithm;
-        }
-
-        void init(Init& init, Info& info) override {
-            N = init.N;
-            L = init.L;
+        void init(SessionConfig* config) override {
+            this->config = config;
+            handler = config->keyHandler;
+            padding = config->padding;
+            algorithm = config->algorithm;
+            N = config->init->N;
+            L = config->init->L;
             fill = 0;
             if (padding != nullptr) {
-                fill = padding->compute(init.N);
+                fill = padding->compute(N);
             }
+            algorithm->init(*config->init);
         }
 
         void deinit() override {

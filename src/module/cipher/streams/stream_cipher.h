@@ -7,10 +7,10 @@
 
 #include "../Padding.h"
 #include "../Contact.h"
-#include "../paddings.h"
+#include "../paddings/RandomBlockPadding.h"
 #include "../segments/serial_segment_cipher.h"
 #include "../CipConfig.h"
-#include "../info_handler.h"
+#include "../infos/info_handler_help.h"
 #include "../AbstractStreamCipher.h"
 
 namespace lc {
@@ -18,12 +18,9 @@ namespace lc {
     protected:
         AbstractSegmentCipher worker;
     public:
-        virtual void init(Init& init, Info& info, BufferContact* contact) {
-            AbstractStreamCipher::init(init, info, contact);
-            worker.setHandler(*handler);
-            worker.setPadding(padding);
-            worker.setAlgorithm(*algorithm);
-            worker.init(init, info);
+        virtual void init(SessionConfig* config, BufferContact* contact) {
+            AbstractStreamCipher::init(config, contact);
+            worker.init(config);
         }
 
         virtual void deinit() {
@@ -49,12 +46,9 @@ namespace lc {
     protected:
         AbstractSegmentCipher worker;
     public:
-        virtual void init(Init& init, Info& info, BufferContact* contact) {
-            AbstractStreamCipher::init(init, info, contact);
-            worker.setHandler(*handler);
-            worker.setPadding(padding);
-            worker.setAlgorithm(*algorithm);
-            worker.init(init, info);
+        virtual void init(SessionConfig* config, BufferContact* contact) {
+            AbstractStreamCipher::init(config, contact);
+            worker.init(config);
         }
 
         virtual void deinit() {

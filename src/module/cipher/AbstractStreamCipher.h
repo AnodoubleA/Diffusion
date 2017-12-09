@@ -22,8 +22,7 @@ namespace lc {
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
         BufferContact* contact = nullptr;
-        Init it;
-        Info io;
+        SessionConfig* config = nullptr;
         int N = 0, fill = 0, cache;
         bool pad = false;
     public:
@@ -50,13 +49,12 @@ namespace lc {
             this->algorithm = &algorithm;
         }
 
-        virtual void init(Init& init, Info& info, BufferContact* contact) {
-            this->N = init.N;
-            this->it = init;
-            this->io = info;
+        virtual void init(SessionConfig* config, BufferContact* contact) {
+            this->N = config->init->N;
+            this->config = config;
             this->contact = contact;
             fill = padding == nullptr ? 0 : padding->compute(N);
-            pad = (info.options & CO::PADDING) != 0;
+            pad = (config->options & CO::PADDING) != 0;
         }
     };
 }

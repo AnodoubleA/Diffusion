@@ -13,9 +13,11 @@ namespace lc {
         int k = 0;
         int s = 1 << CORE_BUFFER_LOG;
         int c = 1 << CORE_COUNT_LOG;
-        int round = (length >> CORE_BUFFER_LOG >> CORE_COUNT_LOG) << CORE_COUNT_LOG;
-        int done = (round << CORE_BUFFER_LOG);
+        uint64 round = (length >> CORE_BUFFER_LOG >> CORE_COUNT_LOG) << CORE_COUNT_LOG;
+        uint64 done = (round << CORE_BUFFER_LOG);
+
 #pragma omp parallel for firstprivate(s, c, k)
+
         for (int i = 0; i < round; i++) {
             int p = k++ * c + omp_get_thread_num();
             ParallelSegmentEncipher::run(in + (p * s), s);
@@ -33,9 +35,11 @@ namespace lc {
         int k = 0;
         int s = 1 << CORE_BUFFER_LOG;
         int c = 1 << CORE_COUNT_LOG;
-        int round = (length >> CORE_BUFFER_LOG >> CORE_COUNT_LOG) << CORE_COUNT_LOG;
-        int done = round << CORE_BUFFER_LOG;
+        uint64 round = (length >> CORE_BUFFER_LOG >> CORE_COUNT_LOG) << CORE_COUNT_LOG;
+        uint64 done = round << CORE_BUFFER_LOG;
+
 #pragma omp parallel for firstprivate(s, c, k)
+
         for (int i = 0; i < round; i++) {
             int p = k++ * c + omp_get_thread_num();
             SerialSegmentDecipher::run(in + (p * s), s);

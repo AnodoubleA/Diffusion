@@ -5,14 +5,16 @@
 #ifndef DIFFUSION_KEYHANDLER_H
 #define DIFFUSION_KEYHANDLER_H
 
-#include "../../cipher/structs.h"
 #include "../../core/DiffusionException.h"
 #include "../../cipher/version.h"
+#include "Info.h"
+#include "Init.h"
 
 namespace lc{
     class KeyHandler : public Version, public Reusable {
     public:
-        virtual void init(Init& init, Info& info) = 0;
+        
+        virtual void init(Info& info, Init& init) = 0;
 
         virtual byte** update()  = 0;
 

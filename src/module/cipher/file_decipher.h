@@ -18,7 +18,7 @@
 #include "../fm/filemapping.h"
 #include "AbstractFileCipher.h"
 #include "CipConfig.h"
-#include "info_handler.h"
+#include "infos/info_handler_help.h"
 
 namespace lc{
     /**
@@ -40,7 +40,7 @@ namespace lc{
                 algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
             }
             AbstractFileCipher::init(init, info, contact);
-            handler->init(init, info);
+            handler->init(info, init);
             cipher = (DecipherBuffer*) BufferCipherFactory::make(info.options);
             cipher->setAlgorithm(*algorithm);
             cipher->setHandler(*handler);
@@ -158,11 +158,11 @@ namespace lc{
                 algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
             }
             AbstractFileCipher::init(init, info, contact);
-            handler->init(init, info);
+            handler->init(info, init);
             worker.setAlgorithm(*algorithm);
             worker.setPadding(padding);
             worker.setHandler(*handler);
-            worker.init(init, info, contact);
+            worker.init(init, contact);
         }
 
         void deinit() override {

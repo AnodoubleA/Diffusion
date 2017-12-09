@@ -8,7 +8,7 @@
 #include "../../core/Reusable.h"
 
 namespace lc {
-    class BoolLock : public Reusable {
+    class Boollock : public Reusable {
     protected:
         bool idle = true;
     public:

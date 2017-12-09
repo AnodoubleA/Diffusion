@@ -2,15 +2,15 @@
 // Created by Angel on 2017/3/27.
 //
 
-#ifndef DIFFUSION_INFOV1_H
-#define DIFFUSION_INFOV1_H
+#ifndef DIFFUSION_DC314_V1_H
+#define DIFFUSION_DC314_V1_H
 
-#include "../../cipher/info.h"
-#include "CipConfig.h"
+#include "../info_handler.h"
+#include "../CipConfig.h"
 
-namespace lc{
+namespace lc {
 
-    class TextInfoHandler_V1 : public AbstractInfoHandler {
+    class TextInfoHandler_DC314_V1 : public AbstractInfoHandler {
     public:
         void write(byte buf[], Info& info) throw(DiffusionException) {
             memset(buf, 0, length());
@@ -30,7 +30,7 @@ namespace lc{
 
         void read(byte buf[], Info& info) throw(DiffusionException) {
             //@formatter:off
-            sub(info.options, FO::PADDING);
+            info.options &= ~FO::PADDING;
             int offset = 0;
             info.log        = buf[offset++];
             info.diff       = buf[offset++] << 8;
@@ -48,7 +48,7 @@ namespace lc{
     };
 
     //===================================================================================
-    class FileInfoHandler_V1 : public AbstractInfoHandler {
+    class FileInfoHandler_DC314_V1 : public AbstractInfoHandler {
     public:
 
         void write(byte buf[], Info& info) throw(DiffusionException) {
@@ -70,7 +70,7 @@ namespace lc{
 
         void read(byte buf[], Info& info) throw(DiffusionException) {
             //@formatter:off
-            sub(info.options, FO::PADDING);
+            info.options &= ~FO::PADDING;
             int offset = length() - CCfg::HEADER_SIZE - 2;
             info.log        = buf[offset--];
             info.diff       = buf[offset--] << 8;
@@ -87,4 +87,4 @@ namespace lc{
         }
     };
 }
-#endif //DIFFUSION_INFOV1_H
+#endif //DIFFUSION_DC314_V1_H

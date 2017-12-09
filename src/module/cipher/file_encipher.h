@@ -20,8 +20,8 @@
 #include "AbstractFileCipher.h"
 #include "../../tool/funs.h"
 #include "CipConfig.h"
-#include "info_factory.h"
-#include "info_handler.h"
+#include "InfoHandlerFactory.h"
+#include "infos/info_handler_help.h"
 #include "../fm/fm_factory.h"
 #include "segments/parallel_segment_cipher.h"
 #include "buffer_factory.h"
@@ -42,7 +42,7 @@ namespace lc{
                 handler = getKeyHandlerFactory().make(info.level);
             }
             AbstractFileCipher::init(init, info, contact);
-            handler->init(init, info);
+            handler->init(info, init);
             cipher = (EncipherBuffer*) BufferCipherFactory::make(info.options);
             cipher->setHandler(*handler);
             cipher->setPadding(padding);
@@ -187,11 +187,11 @@ namespace lc{
                 handler = getKeyHandlerFactory().make(info.level);
             }
             AbstractFileCipher::init(init, info, contact);
-            handler->init(init, info);
+            handler->init(info, init);
             worker.setHandler(*handler);
             worker.setAlgorithm(*algorithm);
             worker.setPadding(padding);
-            worker.init(init, info, contact);
+            worker.init(init, contact);
         }
 
         void deinit() override {

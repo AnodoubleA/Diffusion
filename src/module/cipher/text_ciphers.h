@@ -9,8 +9,8 @@
 #include "SegmentCipher.h"
 #include "segments/serial_segment_cipher.h"
 #include "../../tool/converter.h"
-#include "info_factory.h"
-#include "info_handler.h"
+#include "InfoHandlerFactory.h"
+#include "infos/info_handler_help.h"
 
 namespace lc{
 
@@ -61,7 +61,7 @@ namespace lc{
                 handler = getKeyHandlerFactory().make(info.level);
             }
             AbstractTextCipher::init(init, info);
-            handler->init(init, info);
+            handler->init(info, init);
             worker.setHandler(*handler);
             worker.setPadding(padding);
             worker.setAlgorithm(*algorithm);
@@ -107,7 +107,7 @@ namespace lc{
                 handler = getKeyHandlerFactory().make(info.level);
             }
             AbstractTextCipher::init(init, info);
-            handler->init(init, info);
+            handler->init(info, init);
             worker.setPadding(padding);
             worker.setHandler(*handler);
             worker.setAlgorithm(*algorithm);
