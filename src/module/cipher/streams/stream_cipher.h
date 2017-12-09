@@ -9,7 +9,7 @@
 #include "../Contact.h"
 #include "../paddings/RandomBlockPadding.h"
 #include "../segments/serial_segment_cipher.h"
-#include "../CipConfig.h"
+#include "../InfoHeader.h"
 #include "../infos/info_handler_help.h"
 #include "../AbstractStreamCipher.h"
 
@@ -18,7 +18,7 @@ namespace lc {
     protected:
         AbstractSegmentCipher worker;
     public:
-        virtual void init(SessionConfig* config, BufferContact* contact) {
+        virtual void init(SessionInfo* config, BufferContact* contact) {
             AbstractStreamCipher::init(config, contact);
             worker.init(config);
         }
@@ -46,7 +46,7 @@ namespace lc {
     protected:
         AbstractSegmentCipher worker;
     public:
-        virtual void init(SessionConfig* config, BufferContact* contact) {
+        virtual void init(SessionInfo* config, BufferContact* contact) {
             AbstractStreamCipher::init(config, contact);
             worker.init(config);
         }

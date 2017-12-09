@@ -2,29 +2,29 @@
 // Created by Angel on 2017/12/7.
 //
 
-#ifndef DIFFUSION_SESSIONCONFIG_H
-#define DIFFUSION_SESSIONCONFIG_H
+#ifndef DIFFUSION_SESSIONINFO_H
+#define DIFFUSION_SESSIONINFO_H
 
-#include "Info.h"
-#include "Init.h"
+#include "CipherInfo.h"
+#include "AlgorithmInfo.h"
 #include "KeyHandler.h"
 #include "Padding.h"
 #include "Algorithm.h"
 
 namespace lc {
-    class SessionConfig {
+    class SessionInfo {
     public:
-        ~SessionConfig() = default{
+        ~SessionInfo() = default{
             delete init;
             delete keyHandler;
             delete padding;
             delete algorithm;
         }
-        Init* init = nullptr;
+        AlgorithmInfo* init = nullptr;
         KeyHandler* keyHandler  = nullptr;
         Padding* padding        = nullptr;
         Algorithm* algorithm    = nullptr;
-        uint64 options = 0;
+        CipherInfo* info;
     };
 }
-#endif //DIFFUSION_SESSIONCONFIG_H
+#endif //DIFFUSION_SESSIONINFO_H

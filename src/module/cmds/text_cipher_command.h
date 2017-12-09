@@ -23,8 +23,8 @@ namespace lc{
 			TextOption& op = *(TextOption*) option;
 			OutputContact contact;
 			TextEncipher& cipher = npcmd::getTextEncipher();
-			Init init;
-			Info info;
+			AlgorithmInfo init;
+			CipherInfo info;
 			T::computeInit(init, info, op, EXTEND_ROUND);
 			cipher.init(init, info);
 			contact.buffer = cipher.run(op.input, op.input_size, (int&) contact.length);
@@ -40,8 +40,8 @@ namespace lc{
 			TextOption& op = *(TextOption*) option;
 			OutputContact contact;
 			TextDecipher& cipher = npcmd::getTextDecipher();
-			Init init;
-			Info info;
+			AlgorithmInfo init;
+			CipherInfo info;
 			T::computeInit(init, info, op, EXTEND_ROUND);
 			cipher.init(init, info);
 			contact.buffer = cipher.run(op.input, op.input_size, (int&) contact.length);

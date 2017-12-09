@@ -9,7 +9,7 @@
 #include "Padding.h"
 #include "KeyHandler.h"
 #include "../config/Config.h"
-#include "CipConfig.h"
+#include "InfoHeader.h"
 
 namespace lc{
     class AbstractFileCipher : public FileCipher {
@@ -19,7 +19,7 @@ namespace lc{
         Algorithm* algorithm = nullptr;
         BufferMessenger* contact;
         Info io;
-        Init it;
+        AlgorithmInfo it;
 
     public:
 
@@ -31,7 +31,7 @@ namespace lc{
             return 1;
         }
 
-        void init(Init& init, Info& info, BufferMessenger* contact) override {
+        void init(AlgorithmInfo& init, Info& info, BufferMessenger* contact) override {
             this->contact = contact;
             io = info;
             it = init;

@@ -7,18 +7,17 @@
 
 #include "../../core/DiffusionException.h"
 #include "../../cipher/version.h"
-#include "Info.h"
-#include "Init.h"
+#include "AlgorithmInfo.h"
+#include "../../core/Reusable.h"
+#include "CipherInfo.h"
 
 namespace lc{
     class KeyHandler : public Version, public Reusable {
     public:
         
-        virtual void init(Info& info, Init& init) = 0;
+        virtual void init(CipherInfo& info, AlgorithmInfo& init) = 0;
 
         virtual byte** update()  = 0;
-
-        virtual int version() = 0;
 
         virtual int level() = 0;
     };

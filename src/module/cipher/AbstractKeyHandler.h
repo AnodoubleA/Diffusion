@@ -6,8 +6,8 @@
 #define DIFFUSION_ABSTRACTKEYHANDLER_H
 
 #include "KeyHandler.h"
-#include "Init.h"
-#include "Info.h"
+#include "AlgorithmInfo.h"
+#include "CipherInfo.h"
 #include "Boollock.h"
 
 namespace lc {

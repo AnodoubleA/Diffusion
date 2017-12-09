@@ -17,7 +17,7 @@ namespace lc{
     class TextCipher {
     public:
 
-        virtual void init(Init& init, Info& info) = 0;
+        virtual void init(AlgorithmInfo& init, CipherInfo& info) = 0;
 
         virtual byte* run(byte* buf, int in_len, int& out_len) throw(DiffusionException) = 0;
     };
@@ -34,10 +34,10 @@ namespace lc{
         Padding* padding = nullptr;
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
-        Init it;
-        Info io;
+        AlgorithmInfo it;
+        CipherInfo io;
     public:
-        virtual void init(Init& init, Info& info) override {
+        virtual void init(AlgorithmInfo& init, CipherInfo& info) override {
             options = info.options;
             level = info.level;
         }
@@ -52,9 +52,9 @@ namespace lc{
             padding = new RandomBlockPadding();
         }
 
-        void init(Init& init, Info& info) override {
+        void init(AlgorithmInfo& init, CipherInfo& info) override {
             if (algorithm == nullptr) {
-                algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             if (handler == nullptr || level != info.level) {
                 freeInstance(handler);
@@ -97,10 +97,10 @@ namespace lc{
             padding = new RandomBlockPadding();
         }
 
-        virtual void init(Init& init, Info& info) override {
+        virtual void init(AlgorithmInfo& init, CipherInfo& info) override {
             if (algorithm == nullptr || A_VSR != info.algorithm) {
                 freeInstance(algorithm);
-                algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             if (handler == nullptr || level != info.level) {
                 freeInstance(handler);
@@ -127,7 +127,7 @@ namespace lc{
 
     class TextDecipherWrapper : public TextDecipher {
     public:
-        void init(Init& init, Info& info) override {
+        void init(AlgorithmInfo& init, CipherInfo& info) override {
             it = init;
             io = info;
         }

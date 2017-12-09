@@ -6,11 +6,12 @@
 #define DIFFUSION_FIXEDKEYHANDLER_V1_H
 
 #include "MixKeyHandler.h"
+#include "../Consts.h"
 
-namespace lc{
-    class FixedKeyHandler : public MixKeyHandler {
+namespace lc {
+    class FixedKeyHandler_V1 : public MixKeyHandler {
     public:
-        void init(Info& info,Init& init ) override {
+        void init(CipherInfo& info, AlgorithmInfo& init) override {
             MixKeyHandler::init(info, init);
             init_key(info.key, info.keySize);
             update_key();
@@ -19,7 +20,8 @@ namespace lc{
         }
 
         int level() override {
-            return 1;
+
+            return KeyHandlers::LEVEL_1;
         }
     };
 }

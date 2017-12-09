@@ -13,7 +13,7 @@
 #define C_REG_SPT '>'
 
 #include <string>
-#include "../../cipher/Consts.h"
+#include "../cipher/Consts.h"
 #include "../cipher/Contact.h"
 #include "../../mvc/cmd/Option.h"
 #include "../../core/types.h"

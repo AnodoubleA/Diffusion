@@ -6,7 +6,7 @@
 #include "../module/random/Random.h"
 #include "../module/fs/FileSmash.h"
 #include "../module/fs/file_smash_factory.h"
-#include "../module/cipher/CipConfig.h"
+#include "../module/cipher/InfoHeader.h"
 #include "../module/cipher/KeyHandler.h"
 #include "../module/cipher/InfoHandlerFactory.h"
 #include "../module/cipher/infos/info_handler_help.h"

@@ -6,16 +6,16 @@
 #define DIFFUSION_DC314_V1_H
 
 #include "../info_handler.h"
-#include "../CipConfig.h"
+#include "../InfoHeader.h"
 
 namespace lc {
 
     class TextInfoHandler_DC314_V1 : public AbstractInfoHandler {
     public:
-        void write(byte buf[], Info& info) throw(DiffusionException) {
+        void write(byte buf[], CipherInfo& info) throw(DiffusionException) {
             memset(buf, 0, length());
-            int offset = CCfg::HEADER_SIZE;
-            memcpy(buf, CCfg::HEADER, offset);
+            int offset = IH::DC3_14().size();
+            memcpy(buf, IH::DC3_14().header(), offset);
             buf[offset++] = version();
             buf[offset++] = info.log;
             buf[offset++] = info.diff >> 8 & 0xFF;
@@ -28,9 +28,9 @@ namespace lc {
             buf[offset] = contains(info.options, CO::PADDING);
         }
 
-        void read(byte buf[], Info& info) throw(DiffusionException) {
+        void read(byte buf[], CipherInfo& info) throw(DiffusionException) {
             //@formatter:off
-            info.options &= ~FO::PADDING;
+            info.options &= ~FO::PADDING;          //subtracting padding
             int offset = 0;
             info.log        = buf[offset++];
             info.diff       = buf[offset++] << 8;
@@ -50,11 +50,14 @@ namespace lc {
     //===================================================================================
     class FileInfoHandler_DC314_V1 : public AbstractInfoHandler {
     public:
+        FileInfoHandler_DC314_V1(InfoReader* reader = nullptr) : AbstractInfoHandler(reader) {
 
-        void write(byte buf[], Info& info) throw(DiffusionException) {
+        }
+
+        void write(byte buf[], CipherInfo& info) throw(DiffusionException) {
             memset(buf, 0, length());
-            int offset = length() - CCfg::HEADER_SIZE;
-            memcpy(buf + offset, CCfg::REDAEH, CCfg::HEADER_SIZE);
+            int offset = length() - IH::DC3_14().size();
+            memcpy(buf + offset, IH::DC3_14().inHeader(), IH::DC3_14().size());
             offset--;
             buf[offset--] = version();
             buf[offset--] = info.log;
@@ -68,10 +71,17 @@ namespace lc {
             buf[offset] = contains(info.options, CO::PADDING);
         }
 
-        void read(byte buf[], Info& info) throw(DiffusionException) {
+        void read(byte buf[], CipherInfo& info) throw(DiffusionException) {
+            if (!memcmp(buf + (length() - IH::DC3_14().size()), IH::DC3_14().inHeader(), IH::DC3_14().size())) {
+                if (reader != nullptr) {
+                    reader->read(buf, info);
+                }
+                //TODO throw exception
+                throw new DiffusionException("");
+            }
             //@formatter:off
-            info.options &= ~FO::PADDING;
-            int offset = length() - CCfg::HEADER_SIZE - 2;
+            info.options &= ~FO::PADDING;          //subtracting padding
+            int offset = length() - IH::DC3_14().size() - 1;
             info.log        = buf[offset--];
             info.diff       = buf[offset--] << 8;
             info.diff      |= buf[offset--];

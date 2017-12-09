@@ -18,14 +18,14 @@ namespace lc{
             return writer->length();
         }
 
-        void read(byte buf[], Init& init, Info& info) throw(DiffusionException) {
+        void read(byte buf[], AlgorithmInfo& init, Info& info) throw(DiffusionException) {
             read(buf, info);
             T::computeInit(init, info.group, EXTEND_ROUND);
         }
 
         void read(byte buf[], Info& info) throw(DiffusionException) {
-            int offset = CCfg::HEADER_SIZE;
-            if (memcmp(CCfg::HEADER, buf, offset) != 0) {
+            int offset = IH::HEADER_SIZE;
+            if (memcmp(IH::HEADER, buf, offset) != 0) {
                 throw DiffusionException(I18N->get(ERROR_TEXT_FORMAT_INC));
             }
             int v = buf[offset] & 0xFF;
@@ -64,11 +64,11 @@ namespace lc{
 
         }
 
-        void read(std::string& file, Init& init, Info& info) throw(DiffusionException) {
+        void read(std::string& file, AlgorithmInfo& init, Info& info) throw(DiffusionException) {
             std::ifstream in(file, std::ios::in | std::ios::binary);
             in.seekg(0, std::ios::end);
             int64 file_len = in.tellg();
-            int headSize = CCfg::HEADER_SIZE + 1;
+            int headSize = IH::HEADER_SIZE + 1;
             int64 size = file_len - headSize;
             if (size <= 0) {
                 throw DiffusionException(I18N->gf(ERROR_FILE_LEN_INC, file.c_str()));
@@ -76,7 +76,7 @@ namespace lc{
             byte buf[headSize];
             in.seekg(size);
             in.read((char*) buf, headSize);
-            if (memcmp(buf + 1, CCfg::REDAEH, (size_t) (CCfg::HEADER_SIZE)) != 0) {
+            if (memcmp(buf + 1, IH::REDAEH, (size_t) (IH::HEADER_SIZE)) != 0) {
                 throw DiffusionException(I18N->gf(ERROR_FILE_FORMAT_INC, file.c_str()));
             }
             int v = buf[0] & 0xFF;

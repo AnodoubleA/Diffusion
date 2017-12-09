@@ -19,7 +19,7 @@
 #include "../fm/filemapping.h"
 #include "AbstractFileCipher.h"
 #include "../../tool/funs.h"
-#include "CipConfig.h"
+#include "InfoHeader.h"
 #include "InfoHandlerFactory.h"
 #include "infos/info_handler_help.h"
 #include "../fm/fm_factory.h"
@@ -33,9 +33,9 @@ namespace lc{
         FileInfoHandler infoHandler;
         EncipherBuffer* cipher;
     public:
-        void init(Init& init, Info& info, BufferMessenger* contact) override {
+        void init(AlgorithmInfo& init, CipherInfo& info, BufferMessenger* contact) override {
             if (algorithm == nullptr) {
-                algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
@@ -178,9 +178,9 @@ namespace lc{
         StreamEncipher worker;
         FileInfoHandler infoHandler;
     public:
-        void init(Init& init, Info& info, BufferMessenger* contact) override {
+        void init(AlgorithmInfo& init, CipherInfo& info, BufferMessenger* contact) override {
             if (algorithm == nullptr) {
-                algorithm = getAlgorithmFactory().make(CO::ENCIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);

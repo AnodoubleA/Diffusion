@@ -9,6 +9,7 @@
 #include "../../core/types.h"
 #include "../../core/DiffusionException.h"
 #include "Boollock.h"
+#include "CipherInfo.h"
 
 namespace lc {
     class InfoSupport : public Version, public Reusable {
@@ -19,29 +20,36 @@ namespace lc {
     class InfoReader : public InfoSupport {
     public:
 
-        virtual void read(byte buf[], Info& info)  throw(DiffusionException) = 0;
+        virtual void read(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
 
     };
 
     class InfoWriter : public InfoSupport {
     public:
 
-        virtual void write(byte buf[], Info& info)  throw(DiffusionException) = 0;
+        virtual void write(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
 
     };
 
     class AbstractInfoHandler : public InfoReader, public InfoWriter {
     private:
         Boollock locker;
-        InfoReader* reader = nullptr;
-        InfoWriter* writer = nullptr;
+    protected:
+        InfoReader* reader;
     public:
+        ~AbstractInfoHandler() {
+            delete (reader);
+        }
 
-        virtual void read(byte* buf, Info& info) throw(DiffusionException) {
+        AbstractInfoHandler(InfoReader* reader = nullptr) : reader(reader) {
 
         }
 
-        virtual void write(byte* buf, Info& info) throw(DiffusionException) {
+        virtual void read(byte* buf, CipherInfo& info) throw(DiffusionException) {
+
+        }
+
+        virtual void write(byte* buf, CipherInfo& info) throw(DiffusionException) {
 
         }
 

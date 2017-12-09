@@ -1,27 +1,32 @@
 //
-// Created by Alice on 2017/12/2.
+// Created by Alice on 2017/12/9.
 //
-#include "Algorithm.h"
+
 #include "AlgorithmFactory.h"
-#include "algorithms/DC140713Encipher.h"
+#include "algorithms/DC140713AlgorithmFactory.h"
 
 namespace lc {
-    std::vector<Algorithm*> vector;
 
-    Algorithm* AlgorithmFactory::make(int algorithm) {
-        int V = (algorithm >> 16) & 0xFF;
-        int T = (algorithm) & 0xFF;
-        for (Algorithm* e:vector) {
-            if (e->algorithm() == T && e->version() == V && e->lock()) {
-                return e;
+    std::vector<AlgorithmFactory*> vector;
+
+    AlgorithmFactory& AlgorithmFactory::factory(int algorithm) {
+        int id = algorithm >> 8 & 0xFF;
+        for (AlgorithmFactory* factory:vector) {
+            if (factory->identity() == id) {
+                return *factory;
             }
         }
-        Algorithm* def = new DefaultAlgorithm();
-        vector.push_back(def);
-        return def;
-    }
-
-    void AlgorithmFactory::clear() {
-        vector.clear();
+        AlgorithmFactory* factory = nullptr;
+        switch (id) {
+            case 0:
+            case Algorithms::DC140713 : {
+                factory = new DC140713AlgorithmFactory();
+                break;
+            }
+            default:
+                throw new DiffusionException("No algorithm found!");
+        }
+        vector.push_back(factory);
+        return *factory;
     }
 }

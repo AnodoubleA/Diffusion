@@ -2,13 +2,13 @@
 // Created by Alice on 2017/12/2.
 //
 
-#ifndef DIFFUSION_INIT_H
-#define DIFFUSION_INIT_H
+#ifndef DIFFUSION_ALGORITHMINFO_H
+#define DIFFUSION_ALGORITHMINFO_H
 
 #include "../../core/types.h"
 
 namespace lc {
-    struct Init {
+    struct AlgorithmInfo {
         byte* BOX = nullptr;
         int N = 0;
         int L = 0;
@@ -16,4 +16,4 @@ namespace lc {
     };
 }
 
-#endif //DIFFUSION_INIT_H
+#endif //DIFFUSION_ALGORITHMINFO_H

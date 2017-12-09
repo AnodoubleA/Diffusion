@@ -8,14 +8,14 @@
 #include "../../core/types.h"
 
 #include "Segment.h"
-#include "SessionConfig.h"
+#include "SessionInfo.h"
 
 namespace lc {
     class SegmentCipher : public Segment, public Reusable {
 
     public:
 
-        virtual void init(SessionConfig* config) = 0;
+        virtual void init(SessionInfo* config) = 0;
 
         virtual void deinit() = 0;
 

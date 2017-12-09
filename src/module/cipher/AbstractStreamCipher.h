@@ -9,6 +9,8 @@
 #include "Algorithm.h"
 #include "Padding.h"
 #include "KeyHandler.h"
+#include "SessionInfo.h"
+#include "../cmds/options.h"
 
 extern int allocationGranularity;
 extern int BUFFER_MULTIPLE;
@@ -22,7 +24,7 @@ namespace lc {
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
         BufferContact* contact = nullptr;
-        SessionConfig* config = nullptr;
+        SessionInfo* info = nullptr;
         int N = 0, fill = 0, cache;
         bool pad = false;
     public:
@@ -49,12 +51,12 @@ namespace lc {
             this->algorithm = &algorithm;
         }
 
-        virtual void init(SessionConfig* config, BufferContact* contact) {
-            this->N = config->init->N;
-            this->config = config;
+        virtual void init(SessionInfo* info, BufferContact* contact) {
+            this->N = info->init->N;
+            this->info = info;
             this->contact = contact;
             fill = padding == nullptr ? 0 : padding->compute(N);
-            pad = (config->options & CO::PADDING) != 0;
+            pad = (info->options & CO::PADDING) != 0;
         }
     };
 }

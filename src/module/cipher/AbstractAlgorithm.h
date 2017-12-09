@@ -6,7 +6,7 @@
 #define DIFFUSION_ABSTRACT_ALGORITHM_H
 
 #include <math.h>
-#include "Init.h"
+#include "AlgorithmInfo.h"
 #include "Algorithm.h"
 #include "Boollock.h"
 
@@ -19,7 +19,7 @@ namespace lc {
         byte* BOX = nullptr;
         Boollock locker;
     public:
-        void init(Init& init) override {
+        void init(AlgorithmInfo& init) override {
             R = init.R;
             N = init.N;
             H = N >> 1;

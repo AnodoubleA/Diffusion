@@ -2,17 +2,18 @@
 // Created by Alice on 2017.03.10.
 //
 #pragma once
-#ifndef DIFFUSION_DC140713ENCIPHER_H
-#define DIFFUSION_DC140713ENCIPHER_H
+#ifndef DIFFUSION_DC140713ENCIPHER_V1_H
+#define DIFFUSION_DC140713ENCIPHER_V1_H
 
 #include "../AbstractAlgorithm.h"
+#include "../Consts.h"
 
-namespace lc{
+namespace lc {
 
-    class DC140713Encipher : public AbstractAlgorithm {
+    class DC140713Encipher_V1 : public AbstractAlgorithm {
 
     public:
-        virtual void run(byte M[], byte* K[])  {
+        virtual void run(byte M[], byte* K[]) {
             int x = 0, v = R, h = H - 1, X = H;
             for (int i = 1; i <= R; i++) {
                 byte* U = K[i - 1];
@@ -46,6 +47,11 @@ namespace lc{
                 x = X >> i;
             }
         };
+
+        virtual int mode() {
+            return Consts::ENCIPHER;
+        }
+
     };
 }
-#endif //DIFFUSION_DC140713ENCIPHER_H
+#endif //DIFFUSION_DC140713ENCIPHER_V1_H

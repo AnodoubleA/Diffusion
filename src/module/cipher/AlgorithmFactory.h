@@ -13,9 +13,13 @@
 namespace lc {
     class AlgorithmFactory {
     public:
-        static Algorithm* make(int algorithm);
+        virtual Algorithm* make(int mode, int& algorithm) = 0;
 
-        static void clear();
+        virtual int identity() = 0;
+
+        virtual void clear() = 0;
+
+        static AlgorithmFactory& factory(int algorithm);
     };
 }
 #endif //DIFFUSION_UNIT_FACTORY_H

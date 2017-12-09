@@ -5,8 +5,8 @@
 #define DIFFUSION_STREAMCIPHER_H
 
 #include <istream>
-#include "Init.h"
-#include "Info.h"
+#include "AlgorithmInfo.h"
+#include "CipherInfo.h"
 #include "../../core/DiffusionException.h"
 #include "contacts/BufferContact.h"
 

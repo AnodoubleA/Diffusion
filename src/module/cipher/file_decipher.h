@@ -17,7 +17,7 @@
 #include "../../tool/tools.h"
 #include "../fm/filemapping.h"
 #include "AbstractFileCipher.h"
-#include "CipConfig.h"
+#include "InfoHeader.h"
 #include "infos/info_handler_help.h"
 
 namespace lc{
@@ -30,14 +30,14 @@ namespace lc{
         int A_VSR = 0;
         DecipherBuffer* cipher = nullptr;
     public:
-        void init(Init& init, Info& info, BufferMessenger* contact) override {
+        void init(AlgorithmInfo& init, CipherInfo& info, BufferMessenger* contact) override {
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);
             }
             if (algorithm == nullptr || A_VSR != info.algorithm) {
                 freeInstance(algorithm);
-                algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             AbstractFileCipher::init(init, info, contact);
             handler->init(info, init);
@@ -148,14 +148,14 @@ namespace lc{
             padding = PaddingFactory::make(CO::PADDING);
         }
 
-        void init(Init& init, Info& info, BufferMessenger* contact) override {
+        void init(AlgorithmInfo& init, CipherInfo& info, BufferMessenger* contact) override {
             if (handler == nullptr || io.level != info.level) {
                 freeInstance(handler);
                 handler = getKeyHandlerFactory().make(info.level);
             }
             if (algorithm == nullptr || A_VSR != info.algorithm) {
                 freeInstance(algorithm);
-                algorithm = getAlgorithmFactory().make(CO::DECIPHER, info.algorithm);
+                algorithm = getAlgorithmFactory().make(0, 0);
             }
             AbstractFileCipher::init(init, info, contact);
             handler->init(info, init);

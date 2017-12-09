@@ -6,7 +6,7 @@
 #define DIFFUSION_STANDARDINVOKER_H
 
 #include "Invoker.h"
-#include "../../module/cipher/CipConfig.h"
+#include "../../module/cipher/InfoHeader.h"
 
 namespace lc{
     class StandardInvoker : public Invoker {

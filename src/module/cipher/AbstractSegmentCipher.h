@@ -15,7 +15,7 @@ namespace lc {
     class AbstractSegmentCipher : public SegmentCipher {
     protected:
         int N = 0, L = 0, fill = 0;
-        SessionConfig* config = nullptr;
+        SessionInfo* info = nullptr;
         Padding* padding = nullptr;
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
@@ -23,21 +23,22 @@ namespace lc {
     public:
 
         virtual ~AbstractSegmentCipher() {
-            delete config;
+            delete info;
         }
 
-        void init(SessionConfig* config) override {
-            this->config = config;
-            handler = config->keyHandler;
-            padding = config->padding;
-            algorithm = config->algorithm;
-            N = config->init->N;
-            L = config->init->L;
+        void init(SessionInfo* info) override {
+            this->info = info;
+            handler = info->keyHandler;
+            padding = info->padding;
+            algorithm = info->algorithm;
+            N = info->init->N;
+            L = info->init->L;
             fill = 0;
             if (padding != nullptr) {
                 fill = padding->compute(N);
             }
-            algorithm->init(*config->init);
+            handler->init(info->info);
+            algorithm->init(*info->init);
         }
 
         void deinit() override {

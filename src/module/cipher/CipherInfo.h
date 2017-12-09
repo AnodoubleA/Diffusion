@@ -2,13 +2,13 @@
 // Created by Alice on 2017/12/2.
 //
 
-#ifndef DIFFUSION_INFO_H
-#define DIFFUSION_INFO_H
+#ifndef DIFFUSION_CIPHERINFO_H
+#define DIFFUSION_CIPHERINFO_H
 
 #include "../../core/types.h"
 
 namespace lc {
-    struct Info {
+    struct CipherInfo {
         byte* key = nullptr;
         int algorithm = 1;
         int level = 2;
@@ -21,4 +21,4 @@ namespace lc {
     };
 }
 
-#endif //DIFFUSION_INFO_H
+#endif //DIFFUSION_CIPHERINFO_H

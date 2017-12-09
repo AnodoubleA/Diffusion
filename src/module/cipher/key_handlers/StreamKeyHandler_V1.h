@@ -8,10 +8,10 @@
 #include "MixKeyHandler.h"
 
 namespace lc {
-    class StreamKeyHandler : public MixKeyHandler {
+    class StreamKeyHandler_V1 : public MixKeyHandler {
         int* indices = nullptr;
     public:
-        void init(Info& info, Init& init) override {
+        void init(CipherInfo& info, AlgorithmInfo& init) override {
             MixKeyHandler::init(info, init);
             init_key(info.key, info.keySize);
             update_key();
@@ -61,7 +61,7 @@ namespace lc {
         }
 
     protected:
-        void alloc(Init& init) override {
+        void alloc(AlgorithmInfo& init) override {
             MixKeyHandler::alloc(init);
             if (indices)delete[](indices);
             indices = new int[init.R];
