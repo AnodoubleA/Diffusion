@@ -19,7 +19,7 @@ namespace lc {
 
         virtual void deinit() = 0;
 
-        virtual bool support(unit64 options) = 0;
+        virtual bool support(uint64 options) = 0;
     };
 }
 #endif //DIFFUSION_SEGMENTCIPHER_H

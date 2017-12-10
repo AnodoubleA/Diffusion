@@ -9,11 +9,12 @@
 #include "../../tool/funs.h"
 #include "../config/Config.h"
 #include "../../tool/converter.h"
+#include "CipherInfo.h"
 
 namespace lc {
     class AlgorithmFactory {
     public:
-        virtual Algorithm* make(int mode, int& algorithm) = 0;
+        virtual Algorithm* make(CipherInfo& info, int& algorithm) = 0;
 
         virtual int identity() = 0;
 

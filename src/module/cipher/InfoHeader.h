@@ -30,16 +30,11 @@ namespace lc {
     class DC3_14InfoHeader : public InfoHeader {
     private:
         constexpr static const char* HEADER = "DC3.14";
-        constexpr static const char* IN_HEADER = "41.3CD";
         constexpr static const int SIZE = 6;
 
     public:
         const char* header() override {
             return HEADER;
-        }
-
-        const char* inHeader() override {
-            return IN_HEADER;
         }
 
         const int size() override {

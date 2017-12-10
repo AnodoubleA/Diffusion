@@ -12,11 +12,11 @@ namespace lc {
     public:
         virtual KeyHandler* make(int& level) throw(DiffusionException);
 
-        virtual void clear();
-
         virtual void level();
 
-        static KeyHandlerFactory& factory();
+        static KeyHandlerFactory& factory(int level);
+
+        static void clear();
     };
 }
 #endif //DIFFUSION_KEY_HANDLER_FACTORY_H

@@ -7,7 +7,7 @@
 namespace lc {
     AbstractInfoHandler* getHandler(int type, int version);
 
-    std::vector<AbstractInfoHandler*> handlers;
+    std::vector<InfoHandlerFactory*> vector;
 
     InfoReader* InfoHandlerFactory::getReader(int type, int version)throw(DiffusionException) {
         return getHandler(type, version);

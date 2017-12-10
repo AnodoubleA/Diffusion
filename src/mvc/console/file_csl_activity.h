@@ -42,10 +42,10 @@ namespace lc{
             addNotifier("scheduler.begin", &notifier_scheduler_begin);
             addNotifier("scheduler.end", &notifier_scheduler_end);
             addNotifier("scheduler.abort", &notifier_scheduler_abort);
-            addNotifier("cipher.file.begin", &notifier_cip_begin);
-            addNotifier("cipher.file.end", &notifier_cip_end);
-            addNotifier("cipher.item.error", &notifier_item_error);
-            addNotifier("cipher.item.completed", &notifier_item_complete);
+            addNotifier("CI.file.begin", &notifier_cip_begin);
+            addNotifier("CI.file.end", &notifier_cip_end);
+            addNotifier("CI.item.error", &notifier_item_error);
+            addNotifier("CI.item.completed", &notifier_item_complete);
         }
 
         std::string getTipLine() {

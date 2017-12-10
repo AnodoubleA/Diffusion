@@ -13,7 +13,7 @@
 #include "../../tool/Strings.h"
 #include <regex>
 
-namespace lc{
+namespace lc {
 
     class HashClassifyNotification : public ClassifyNotification {
 
@@ -21,7 +21,7 @@ namespace lc{
         std::map<std::string, std::list<Notifier*>> content;
 
     public:
-        ~HashClassifyNotification() {
+        ~HashClassifyNotification() = default {
             content.clear();
         }
 

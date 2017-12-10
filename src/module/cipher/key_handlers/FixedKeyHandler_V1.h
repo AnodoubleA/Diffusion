@@ -11,8 +11,8 @@
 namespace lc {
     class FixedKeyHandler_V1 : public MixKeyHandler {
     public:
-        void init(CipherInfo& info, AlgorithmInfo& init) override {
-            MixKeyHandler::init(info, init);
+        void init(CipherInfo& info, KeyInfo& keyInfo) override {
+            MixKeyHandler::init(info, keyInfo);
             init_key(info.key, info.keySize);
             update_key();
             update_key();

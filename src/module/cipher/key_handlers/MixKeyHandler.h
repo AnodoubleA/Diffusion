@@ -21,14 +21,14 @@ namespace lc {
             delete[] K;
         }
 
-        void init(CipherInfo& info, AlgorithmInfo& init) override {
-            AbstractKeyHandler::init(info, init);
-            N = init.N;
-            R = init.R;
+        void init(CipherInfo& info, KeyInfo& keyInfo) override {
+            AbstractKeyHandler::init(info, keyInfo);
+            N = keyInfo.N;
+            R = keyInfo.R;
             H = N >> 1;
             if (_N != R) {
                 if (K != nullptr)delete[](K);
-                alloc(init);
+                alloc(keyInfo);
             }
         }
 
@@ -37,8 +37,8 @@ namespace lc {
         }
 
     protected:
-        virtual void alloc(AlgorithmInfo& init) {
-            _N = init.R;
+        virtual void alloc(KeyInfo& keyInfo) {
+            _N = keyInfo.R;
             _R = (int) ceil(log2(R));
             _P = 1 << _R;
             _H = _N >> 1;

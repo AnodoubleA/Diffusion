@@ -5,11 +5,7 @@
 #ifndef DIFFUSION_RANDOM_H
 #define DIFFUSION_RANDOM_H
 
-#include "SeedFactory.h"
-
 namespace lc{
-
-    extern SeedFactory& getSeedFactory();
 
     class Random {
 

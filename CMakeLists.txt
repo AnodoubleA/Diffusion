@@ -8,7 +8,7 @@ set(SOURCE_FILES
         main.cpp
         src/core/
         src/module/cipher/
-#        src/module/cipher/streams/
+#        src/module/CI/streams/
         src/module/cipher/algorithms/DC140713AlgorithmFactory.h)
 
 add_executable(Diffusion ${SOURCE_FILES})

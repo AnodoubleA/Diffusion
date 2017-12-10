@@ -10,7 +10,7 @@
 #include "../module/cipher/KeyHandler.h"
 #include "../module/cipher/InfoHandlerFactory.h"
 #include "../module/cipher/infos/info_handler_help.h"
-#include "../module/random/seed_factory_impl.h"
+#include "../module/random/SecureSeedFactory.h"
 #include "../core/static_init.h"
 #include "../module/cipher/SegmentCipher.h"
 

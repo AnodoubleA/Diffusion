@@ -20,7 +20,7 @@
 using namespace std;
 namespace lc{
     static const string version = "1.2.1";
-    static const string title = "Diffusion cipher [" + version + "] - by Nodouble";
+    static const string title = "Diffusion CI [" + version + "] - by Nodouble";
     static const string ini_name = "diffusion.ini";
     static MainConsoleActivity* main;
     static TextConsoleActivity* textConsole;
@@ -29,7 +29,7 @@ namespace lc{
     TypeConfig* config = new IniConfig();
     Console* console = new WinConsole();
 
-    static const string copyright = "Diffusion cipher [" + version + "]\n(c) 2017 All right reserved.";
+    static const string copyright = "Diffusion CI [" + version + "]\n(c) 2017 All right reserved.";
 
 
     void Application::initialize() {

@@ -31,8 +31,8 @@ tip.item.error              = Input <Y> to continue, <*> not show this again, <N
 tip.cmd.unknown             = Unknown command: ${%s}
 tip.ops.unknown             = Unknown option: ${%s}
 tip-line.main               = Input command>
-tip-line.text               = Text cipher>
-tip-line.file               = File cipher>
+tip-line.text               = Text CI>
+tip-line.file               = File CI>
 tip-line.show.name          = Name
 tip-line.show.value         = Value
 tip-line.help.name          = Options
@@ -87,12 +87,12 @@ validate.fst.toos           = File smash times is too small, batter >= ${%d}. Go
 validate.fl.nfd             = Input file(directory) not found from your input: ${%s}
 validate.reg.inc            = Incorrect regexp expression: ${%s}
 
-cipher.scheduler.begin      = File count: ${%d}, begin...
-cipher.scheduler.end        = Process completed. Total time ${t+,HH:mm:ss:SSS}
-cipher.text.begin           =
-cipher.text.end             = OK>
-cipher.file.begin           = -> ${%s} [${d,%.3f}] [${%d}/${%d}]
-cipher.file.end             = => ${%s} [${d,%.3f}] [${t+,HH:mm:ss:SSS}]
-cipher.item.error           = ${%s}
-cipher.item.completed       =
+CI.scheduler.begin      = File count: ${%d}, begin...
+CI.scheduler.end        = Process completed. Total time ${t+,HH:mm:ss:SSS}
+CI.text.begin           =
+CI.text.end             = OK>
+CI.file.begin           = -> ${%s} [${d,%.3f}] [${%d}/${%d}]
+CI.file.end             = => ${%s} [${d,%.3f}] [${t+,HH:mm:ss:SSS}]
+CI.item.error           = ${%s}
+CI.item.completed       =
                                  

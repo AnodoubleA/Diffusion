@@ -6,7 +6,6 @@
 #define DIFFUSION_DC140713ALGORITHMFACTORY_H
 
 #include "AbstractAlgorithmFactory.h"
-#include "../Algorithms.h"
 
 namespace lc {
     class DC140713AlgorithmFactory : public AbstractAlgorithmFactory {
@@ -17,7 +16,7 @@ namespace lc {
         }
 
     protected:
-        Algorithm* newAlgorithm(int mode, int& algorithm) override ;
+        Algorithm* newAlgorithm(CipherInfo& info, int& algorithm) override ;
     };
 }
 #endif //DIFFUSION_DC140713ALGORITHMFACTORY_H

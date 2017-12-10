@@ -2,50 +2,43 @@
 // Created by Angel on 2017/12/7.
 //
 #include <vector>
+#include <map>
 #include "KeyHandlerFactory.h"
 #include "key_handlers/FixedKeyHandler_V1.h"
 #include "key_handlers/StreamKeyHandler_V1.h"
 #include "../i18n/lang.h"
+#include "key_handlers/FixedKeyHandlerFactory.h"
+#include "key_handlers/StreamKeyHandlerFactory.h"
 
 namespace lc {
 
-    std::vector<KeyHandler*> cache;
+    std::map<int, KeyHandlerFactory*> cache;
 
-    KeyHandler* KeyHandlerFactory::make(int& level)throw(DiffusionException) {
-        int version = level >> 8 & 0xFF;
-        int lv = level & 0xFF;
-        version = version == 0 ? 1 : version;
-        if (version > 1) {
-            throw DiffusionException(ERROR_KVS_USP, version);
+    KeyHandlerFactory& KeyHandlerFactory::factory(int level) {
+        KeyHandlerFactory* factory = cache[level];
+        if (factory != nullptr) {
+            return *factory;
         }
-        KeyHandler* instance = nullptr;
-        for (KeyHandler* item : cache) {
-            if (item->level() == lv && item->version() == version && item->lock()) {
-                instance = item;
-            }
+        switch (level) {
+            case KeyHandlers::LEVEL_1 :
+                factory = new FixedKeyHandlerFactory();
+                break;
+            case KeyHandlers::LEVEL_2 :
+                factory = new StreamKeyHandlerFactory();
+                break;
+            default:
+                //TODO throw exception
+                throw DiffusionException("");
         }
-        if (instance == nullptr) {
-            switch (lv) {
-                case 1:
-                    instance = new FixedKeyHandler();
-                    break;
-                case 2:
-                    instance = new StreamKeyHandler();
-                    break;
-                default:
-                    throw DiffusionException(I18N->gf(ERROR_KLV_USP, lv));
-            }
-            cache.push_back(instance);
-        }
-        level |= instance->version() << 8;
-        instance->lock();
-        return instance;
+        cache[level] = factory;
+        return *factory;
     }
 
+
     void KeyHandlerFactory::clear() {
-        for (KeyHandler* key:cache) {
-            delete (key);
+        std::map<int, KeyHandlerFactory*>::iterator it = cache.begin();
+        while (it++ != cache.end()) {
+            it->second->clear();
         }
-        cache.clear();
     }
 }

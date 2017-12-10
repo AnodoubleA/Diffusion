@@ -6,7 +6,7 @@
 #define DIFFUSION_SEEDFACTORY_H
 
 #include <vector>
-#include "seed_source.h"
+#include "SeedSource.h"
 
 namespace lc{
     class SeedFactory {

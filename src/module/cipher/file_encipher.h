@@ -24,7 +24,7 @@
 #include "infos/info_handler_help.h"
 #include "../fm/fm_factory.h"
 #include "segments/parallel_segment_cipher.h"
-#include "buffer_factory.h"
+#include "SegmentFactory.h"
 
 namespace lc{
 

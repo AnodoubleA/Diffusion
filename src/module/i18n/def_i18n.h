@@ -50,8 +50,8 @@ namespace lc{
             content[TIP_CMD_UNKNOWN]                  = "Unknown command: ${%s}";
             content[TIP_OPS_UNKNOWN]                  = "Unknown option: ${%s}";
             content[TIP_LINE_MAIN]                    = "Input command>";
-            content[TIP_LINE_TEXT]                    = "Text cipher>";
-            content[TIP_LINE_FILE]                    = "File cipher>";
+            content[TIP_LINE_TEXT]                    = "Text CI>";
+            content[TIP_LINE_FILE]                    = "File CI>";
             content[TIP_LINE_SHOW_NAME]               = "Name";
             content[TIP_LINE_SHOW_VALUE]              = "Value";
             content[TIP_LINE_HELP_NAME]               = "Options";

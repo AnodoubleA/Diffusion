@@ -6,6 +6,7 @@
 #define DIFFUSION_ABSTRACTALGORITHMFACTORY_H
 
 #include "../AlgorithmFactory.h"
+#include "../CipherInfo.h"
 
 namespace lc {
     class AbstractAlgorithmFactory : public AlgorithmFactory {
@@ -14,9 +15,9 @@ namespace lc {
         std::vector<Algorithm*> decs;
     public:
 
-        virtual Algorithm* make(int mode, int& algorithm) {
+        virtual Algorithm* make(CipherInfo& info, int& algorithm) {
 
-            return getAlgorithm(mode, algorithm);
+            return getAlgorithm(info, algorithm);
         }
 
         virtual void clear() {
@@ -32,11 +33,11 @@ namespace lc {
 
     protected:
 
-        virtual Algorithm* newAlgorithm(int mode, int& algorithm) = 0;
+        virtual Algorithm* newAlgorithm(CipherInfo& info, int& algorithm) = 0;
 
     private:
-        virtual Algorithm* getAlgorithm(int mode, int& algorithm) {
-            std::vector<Algorithm*> vector = mode == Consts::ENCIPHER ? encs : decs;
+        virtual Algorithm* getAlgorithm(CipherInfo& info, int& algorithm) {
+            std::vector<Algorithm*> vector = (info.options & Consts::ENCIPHER) != 0 ? encs : decs;
             int V = (algorithm >> 8) & 0xFF;
             int T = (algorithm) & 0xFF;
             for (Algorithm* e:vector) {
@@ -44,7 +45,7 @@ namespace lc {
                     return e;
                 }
             }
-            Algorithm* instance = newAlgorithm(Consts::ENCIPHER, algorithm);
+            Algorithm* instance = newAlgorithm(info, algorithm);
             if (instance == nullptr) {
                 //TODO throw exception
                 throw new DiffusionException("");

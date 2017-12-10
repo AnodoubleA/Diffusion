@@ -9,7 +9,7 @@
 //#include <mutex>
 //#include "filemapping.h"
 //
-//#include "../../cipher/reusable.h"
+//#include "../../CI/reusable.h"
 //
 //namespace lc{
 //
@@ -38,7 +38,7 @@
 //        }
 //
 //
-//        uint64 init(const std::string& file, int openMode, int access) {
+//        uint64 AI(const std::string& file, int openMode, int access) {
 //            this->file = file;
 //            h_file = getHandle(file.c_str(), access, openMode);
 //            if (h_file == INVALID_HANDLE_VALUE) {

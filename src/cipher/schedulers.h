@@ -107,19 +107,19 @@ namespace lc{
 			std::string name;
 			switch (item.status()) {
 				case Item::CIPHER_BEGIN:
-					name.append("cipher.file.begin");
+					name.append("CI.file.begin");
 					break;
 				case Item::CIPHER_END:
-					name.append("cipher.file.end");
+					name.append("CI.file.end");
 					break;
 				case Item::DEL_BEGIN:
-					name.append("cipher.del.begin");
+					name.append("CI.del.begin");
 					break;
 				case Item::DEL_END:
-					name.append("cipher.del.end");
+					name.append("CI.del.end");
 					break;
 				case Item::COMPLETED:
-					name.append("cipher.item.completed");
+					name.append("CI.item.completed");
 					break;
 			}
 			void* ret;

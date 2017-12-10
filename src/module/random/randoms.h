@@ -6,6 +6,7 @@
 #define DIFFUSION_RANDOMS_H
 
 #include <cmath>
+#include <memory.h>
 #include "Random.h"
 #include "rd_box.h"
 

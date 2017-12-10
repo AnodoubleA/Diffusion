@@ -2,12 +2,16 @@
 // Created by Angel on 2017/4/2.
 //
 
-#ifndef DIFFUSION_SEED_FACTORY_IMPL_H
-#define DIFFUSION_SEED_FACTORY_IMPL_H
+#ifndef DIFFUSION_SECURESEEDFACTORY_H
+#define DIFFUSION_SECURESEEDFACTORY_H
 
+#include <memory.h>
 #include "SeedFactory.h"
+#include "seeds/CPUSeedSource.h"
+#include "seeds/TimeSeedSource.h"
+#include "seeds/MemorySeedSource.h"
 
-namespace lc{
+namespace lc {
     class SecureSeedFactory : public SeedFactory {
     private:
         std::vector<SeedSource*> sources;
@@ -20,7 +24,6 @@ namespace lc{
             regist(new TimeSeedSource());
             regist(new MemorySeedSource());
             regist(new CPUSeedSource());
-            regist(new TempdirSeedSource());
         }
 
         void init() override {
@@ -60,4 +63,4 @@ namespace lc{
         }
     };
 }
-#endif //DIFFUSION_SEED_FACTORY_IMPL_H
+#endif //DIFFUSION_SECURESEEDFACTORY_H

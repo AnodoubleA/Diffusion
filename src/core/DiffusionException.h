@@ -8,18 +8,35 @@
 
 #include <exception>
 #include <stdexcept>
+#include <vector>
+#include <cstdarg>
 #include "types.h"
 
 namespace lc {
     class DiffusionException : public std::runtime_error {
-        uint64 code;
+    private:
+        const char* key;
+        std::vector<void*> args;
     public:
-        DiffusionException(const std::string& __arg) : runtime_error(__arg) {
 
+        explicit DiffusionException(const char* key, ...) : runtime_error(nullptr) {
+            this->key = key;
+            std::vector<void*> args;
+            va_list start;
+            va_start(start, key);
+            void* get;
+            while ((get = va_arg(start, void*)) != 0) {
+                args.push_back(get);
+            }
+            va_end(start);
         }
 
-        DiffusionException(uint64 code, const std::string& __arg) : runtime_error(__arg) {
-            this->code = code;
+        const char* getKey() {
+            return key;
+        }
+
+        std::vector<void*>& getArguments() {
+            return args;
         }
     };
 }

@@ -20,14 +20,14 @@ namespace lc {
     class InfoReader : public InfoSupport {
     public:
 
-        virtual void read(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
+        virtual int read(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
 
     };
 
     class InfoWriter : public InfoSupport {
     public:
 
-        virtual void write(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
+        virtual int write(byte* buf, CipherInfo& info)  throw(DiffusionException) = 0;
 
     };
 
@@ -45,11 +45,7 @@ namespace lc {
 
         }
 
-        virtual void read(byte* buf, CipherInfo& info) throw(DiffusionException) {
-
-        }
-
-        virtual void write(byte* buf, CipherInfo& info) throw(DiffusionException) {
+        virtual int write(byte* buf, CipherInfo& info) throw(DiffusionException) {
 
         }
 

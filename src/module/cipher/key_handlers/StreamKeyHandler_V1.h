@@ -11,8 +11,8 @@ namespace lc {
     class StreamKeyHandler_V1 : public MixKeyHandler {
         int* indices = nullptr;
     public:
-        void init(CipherInfo& info, AlgorithmInfo& init) override {
-            MixKeyHandler::init(info, init);
+        void init(CipherInfo& info, KeyInfo& keyInfo) override {
+            MixKeyHandler::init(info, keyInfo);
             init_key(info.key, info.keySize);
             update_key();
             update_key();
@@ -25,29 +25,29 @@ namespace lc {
                 byte* U = K[i];
                 byte* V = K[v];
                 for (int y = H; y < N;) {
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
-                    U[y] = (byte) (key::S1[(U[y] ^ V[y])] ^ U[x]);
-                    U[x] = (byte) (key::S2[(U[x] ^ V[x])] ^ U[y]);
+                    U[y] = (key::S1[(U[y] ^ V[y])] ^ U[x]);
+                    U[x] = (key::S2[(U[x] ^ V[x])] ^ U[y]);
                     x = (++x) & h, y++;
                 }
                 indices[i] = (indices[i] << 1);
@@ -61,10 +61,10 @@ namespace lc {
         }
 
     protected:
-        void alloc(AlgorithmInfo& init) override {
-            MixKeyHandler::alloc(init);
+        void alloc(KeyInfo& keyInfo) override {
+            MixKeyHandler::alloc(keyInfo);
             if (indices)delete[](indices);
-            indices = new int[init.R];
+            indices = new int[keyInfo.R];
         }
 
         void init_key(byte* key, int length) override {

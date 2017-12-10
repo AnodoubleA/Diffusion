@@ -24,9 +24,11 @@ namespace lc {
         KeyHandler* handler = nullptr;
         Algorithm* algorithm = nullptr;
         BufferContact* contact = nullptr;
-        SessionInfo* info = nullptr;
-        int N = 0, fill = 0, cache;
+        SessionInfo* session = nullptr;
+        int N = 0, fill = 0;
         bool pad = false;
+        uint64 cache = 0;
+
     public:
         virtual ~AbstractStreamCipher() {
             delete[](buf_in);
@@ -52,11 +54,11 @@ namespace lc {
         }
 
         virtual void init(SessionInfo* info, BufferContact* contact) {
-            this->N = info->init->N;
-            this->info = info;
+            this->N = info->AI->N;
+            this->session = info;
             this->contact = contact;
             fill = padding == nullptr ? 0 : padding->compute(N);
-            pad = (info->options & CO::PADDING) != 0;
+            pad = (info->CI->options & CO::PADDING) != 0;
         }
     };
 }

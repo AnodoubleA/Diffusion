@@ -15,16 +15,17 @@ namespace lc {
     class SessionInfo {
     public:
         ~SessionInfo() = default{
-            delete init;
+            delete AI;
+            delete CI;
             delete keyHandler;
             delete padding;
             delete algorithm;
         }
-        AlgorithmInfo* init = nullptr;
+        AlgorithmInfo* AI       = nullptr;
         KeyHandler* keyHandler  = nullptr;
         Padding* padding        = nullptr;
         Algorithm* algorithm    = nullptr;
-        CipherInfo* info;
+        CipherInfo* CI          = nullptr;
     };
 }
 #endif //DIFFUSION_SESSIONINFO_H

@@ -101,16 +101,16 @@ namespace lc{
     static const char* VDR_FL_NFD                   = "validate.fl.nfd";
     static const char* VDR_REG_INC                  = "validate.reg.inc";
 
-    static const char* CIPHER_SCHEDULER_BEGIN       = "cipher.scheduler.begin";
-    static const char* CIPHER_SCHEDULER_END         = "cipher.scheduler.end";
-    static const char* CIPHER_TEXT_BEGIN            = "cipher.text.begin";
-    static const char* CIPHER_TEXT_END              = "cipher.text.end";
-    static const char* CIPHER_FILE_BEGIN            = "cipher.file.begin";
-    static const char* CIPHER_FILE_END              = "cipher.file.end";
-    static const char* CIPHER_DEL_BEGIN             = "cipher.del.begin";
-    static const char* CIPHER_DEL_END               = "cipher.del.end";
-    static const char* CIPHER_ITEM_ERROR            = "cipher.item.error";
-    static const char* CIPHER_ITEM_COMPETED         = "cipher.item.completed";
+    static const char* CIPHER_SCHEDULER_BEGIN       = "CI.scheduler.begin";
+    static const char* CIPHER_SCHEDULER_END         = "CI.scheduler.end";
+    static const char* CIPHER_TEXT_BEGIN            = "CI.text.begin";
+    static const char* CIPHER_TEXT_END              = "CI.text.end";
+    static const char* CIPHER_FILE_BEGIN            = "CI.file.begin";
+    static const char* CIPHER_FILE_END              = "CI.file.end";
+    static const char* CIPHER_DEL_BEGIN             = "CI.del.begin";
+    static const char* CIPHER_DEL_END               = "CI.del.end";
+    static const char* CIPHER_ITEM_ERROR            = "CI.item.error";
+    static const char* CIPHER_ITEM_COMPETED         = "CI.item.completed";
     //@formatter:off
 }
 #endif //DIFFUSION_LANG_H

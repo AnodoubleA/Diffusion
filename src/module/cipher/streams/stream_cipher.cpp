@@ -3,7 +3,7 @@
 //
 #include "stream_cipher.h"
 
-namespace lc{
+namespace lc {
     uint64 StreamEncipher::run_non_fill(std::istream& in, std::ostream& out, uint64 length)  throw(DiffusionException) {
         if (length == -1) {
             length = get_length(in);
@@ -19,7 +19,7 @@ namespace lc{
         if (remainder > 0) {
             in.read((char*) buf_in, remainder);
             uint64 count = worker.run(buf_in, remainder);
-            padding->padding(buf_in + remainder - io.diff, io.diff);
+            padding->padding(buf_in + remainder - session->CI->diff, session->CI->diff);
             out.write((char*) buf_in, count);
             contact->addDone(remainder);
         }
@@ -31,7 +31,7 @@ namespace lc{
         if (length == -1) {
             length = get_length(in);
         }
-        int sin = (cache / N) * (N - fill);
+        uint64 sin = (cache / N) * (N - fill);
         uint64 round = length / sin;
         uint64 remainder = length % sin;
         for (uint64 i = 0; i < round; i++) {
@@ -69,10 +69,10 @@ namespace lc{
         if (remainder > 0) {
             in.read((char*) buf_in, remainder);
             count = worker.run(buf_in, remainder);
-            out.write((char*) buf_in, count - io.diff);
+            out.write((char*) buf_in, count - session->CI->diff);
             contact->addDone(remainder);
         }
-        return length - io.diff;
+        return length - session->CI->diff;
     }
 
     uint64 StreamDecipher::run_fill(std::istream& in, std::ostream& out, uint64 length)  throw(DiffusionException) {
@@ -91,10 +91,10 @@ namespace lc{
         if (remainder > 0) {
             in.read((char*) buf_in, remainder);
             uint64 count = worker.run(buf_in, buf_out, remainder);
-            out.write((char*) buf_out, count - io.diff);
+            out.write((char*) buf_out, count - session->CI->diff);
             contact->addDone(remainder);
         }
         out.flush();
-        return length - io.diff;
+        return length - session->CI->diff;
     }
 }

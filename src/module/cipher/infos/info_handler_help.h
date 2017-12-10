@@ -11,7 +11,7 @@
 namespace lc{
 
     class TextInfoHandler : public AbstractInfoHandler {
-        InfoWriter* writer = InfoHandlerFactory::getWriter(CO::TEXT, 0);
+        InfoWriter* writer = InfoHandlerFactory::getWriter(0, CO::TEXT);
         InfoReader* reader;
     public:
         int length() override {
@@ -31,7 +31,7 @@ namespace lc{
             int v = buf[offset] & 0xFF;
             if (reader == nullptr || reader->version() != v) {
                 freeInstance(reader);
-                reader = InfoHandlerFactory::getReader(CO::TEXT, v);
+                reader = InfoHandlerFactory::getReader(0, CO::TEXT);
             }
             if (reader == nullptr) {
                 throw DiffusionException(I18N->gf(ERROR_TEXT_HVS_USP, v));
@@ -53,7 +53,7 @@ namespace lc{
     };
 
     class FileInfoHandler : public AbstractInfoHandler {
-        InfoWriter* writer = InfoHandlerFactory::getWriter(CO::FILE, 0);
+        InfoWriter* writer = InfoHandlerFactory::getWriter(0, CO::FILE);
         InfoReader* reader;
     public:
         int length() override {
@@ -82,7 +82,7 @@ namespace lc{
             int v = buf[0] & 0xFF;
             if (reader == nullptr || reader->version() != v) {
                 freeInstance(reader);
-                reader = InfoHandlerFactory::getReader(CO::FILE, v);
+                reader = InfoHandlerFactory::getReader(0, CO::FILE);
             }
             if (reader == nullptr) {
                 throw DiffusionException(I18N->gf(ERROR_FILE_HVS_USP, v, file.c_str()));

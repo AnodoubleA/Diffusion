@@ -104,7 +104,7 @@ namespace lc{
 
     protected:
         bool isNumber(const std::string& content) {
-            return regex_match(content, mf::result, *mf::reg_number);
+            return regex_match(content.c_str(), mf::result, *mf::reg_number);
         }
 
         void split(const std::string& s, const std::string& delim, std::vector<std::string>& ret) {

@@ -31,14 +31,14 @@ namespace lc {
             handler = info->keyHandler;
             padding = info->padding;
             algorithm = info->algorithm;
-            N = info->init->N;
-            L = info->init->L;
+            N = info->AI->N;
+            L = info->AI->L;
             fill = 0;
             if (padding != nullptr) {
                 fill = padding->compute(N);
             }
-            handler->init(info->info);
-            algorithm->init(*info->init);
+            handler->init(info->CI);
+            algorithm->init(*info->AI);
         }
 
         void deinit() override {

@@ -13,9 +13,11 @@ namespace lc {
 
     class InfoHandlerFactory {
     public:
-        static InfoReader* getReader(int type, int version) throw(DiffusionException);
+        virtual InfoReader* getReader(int type, int version) throw(DiffusionException);
 
-        static InfoWriter* getWriter(int type, int version)throw(DiffusionException);
+        virtual InfoWriter* getWriter(int type, int version)throw(DiffusionException);
+
+        static InfoHandlerFactory& factory(int type) throw(DiffusionException);
 
         static void clear();
     };
