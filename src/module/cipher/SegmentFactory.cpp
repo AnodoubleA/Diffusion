@@ -2,6 +2,7 @@
 // Created by Alice on 2017/12/10.
 //
 #include "SegmentFactory.h"
+#include "../cmds/options.h"
 
 using namespace lc;
 std::vector<SegmentCipher*> vector;
@@ -13,19 +14,19 @@ static SegmentCipher* SegmentFactory::make(CipherInfo& info) {
         }
     }
     SegmentCipher* instance;
-    if (contains(info.options, CO::ENCIPHER, CO::MULTICORE)) {
+    if (contains(info.options, Consts::ENCIPHER, Consts::MULTICORE)) {
         instance = new SerialSegmentEncipher();
         goto end;
     }
-    if (contains(info.options, CO::DECIPHER, CO::MULTICORE)) {
+    if (contains(info.options, Consts::DECIPHER, Consts::MULTICORE)) {
         instance = new SerialSegmentDecipher();
         goto end;
     }
-    if (contains(info.options, CO::ENCIPHER | CO::MULTICORE)) {
+    if (contains(info.options, Consts::ENCIPHER | Consts::MULTICORE)) {
         instance = new ParallelSegmentEncipher();
         goto end;
     }
-    if (contains(info.options, CO::DECIPHER | CO::MULTICORE)) {
+    if (contains(info.options, Consts::DECIPHER | Consts::MULTICORE)) {
         instance = new ParallelSegmentDecipher();
         goto end;
     }

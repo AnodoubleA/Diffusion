@@ -11,7 +11,7 @@
 
 namespace lc {
 
-    class TextInfoHandler_DC314_V1 : public AbstractInfoHandler {
+    class TextInfoHandler_DC314_V1 : public InfoHandler {
     public:
         int write(byte buf[], CipherInfo& info) throw(DiffusionException) {
             int offset = 0;
@@ -45,6 +45,10 @@ namespace lc {
             info.group      = 1 << info.log;
             //@formatter:on
         }
+
+        int type() override {
+            return CO::TEXT;
+        }
     };
 
     //===================================================================================
@@ -58,6 +62,10 @@ namespace lc {
         int read(byte buf[], CipherInfo& info) throw(DiffusionException) {
             strrev((char*) buf);
             TextInfoHandler_DC314_V1::read(buf, info);
+        }
+
+        int type() override {
+            return CO::FILE;
         }
     };
 }

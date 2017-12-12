@@ -24,14 +24,6 @@ namespace lc{
 	typedef class CipherOption : public Option {
 	
 	public:
-		//@formatter:off
-        static const int ENCIPHER            = 1 << 0;
-        static const int DECIPHER            = 1 << 1;
-        static const int PADDING             = 1 << 2;
-        static const int MULTICORE           = 1 << 3;
-        static const int TEXT                = 1 << 14;
-        static const int FILE                = 1 << 15;
-        //@formatter:on
 		int options = 0;
 		int level = 1;
 		int size = 128;

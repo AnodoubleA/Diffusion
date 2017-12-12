@@ -15,6 +15,8 @@ namespace lc {
     class InfoSupport : public Version, public Reusable {
     public:
         virtual int length() = 0;
+
+        virtual int type() = 0;
     };
 
     class InfoReader : public InfoSupport {
@@ -31,17 +33,17 @@ namespace lc {
 
     };
 
-    class AbstractInfoHandler : public InfoReader, public InfoWriter {
+    class InfoHandler : public InfoReader, public InfoWriter {
     private:
         Boollock locker;
     protected:
-        InfoReader* reader;
+        InfoReader* reader = nullptr;
     public:
-        ~AbstractInfoHandler() {
+        ~InfoHandler() {
             delete (reader);
         }
 
-        AbstractInfoHandler(InfoReader* reader = nullptr) : reader(reader) {
+        InfoHandler(InfoReader* reader = nullptr) : reader(reader) {
 
         }
 

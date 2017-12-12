@@ -17,6 +17,10 @@ namespace lc {
 
         }
 
+        int type() override {
+            return CO::TEXT;
+        }
+
     protected:
         InfoHeader& getInfoHeader() override {
             return IH::DC3_14();
@@ -27,6 +31,10 @@ namespace lc {
     public:
         DC3_14FileInfoHandler(InfoReader* reader = nullptr) : HeaderInfoHandler(reader) {
 
+        }
+
+        int type() override {
+            return CO::FILE;
         }
 
     protected:

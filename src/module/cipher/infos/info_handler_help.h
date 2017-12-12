@@ -10,7 +10,7 @@
 
 namespace lc{
 
-    class TextInfoHandler : public AbstractInfoHandler {
+    class TextInfoHandler : public InfoHandler {
         InfoWriter* writer = InfoHandlerFactory::getWriter(0, CO::TEXT);
         InfoReader* reader;
     public:
@@ -52,7 +52,7 @@ namespace lc{
         }
     };
 
-    class FileInfoHandler : public AbstractInfoHandler {
+    class FileInfoHandler : public InfoHandler {
         InfoWriter* writer = InfoHandlerFactory::getWriter(0, CO::FILE);
         InfoReader* reader;
     public:

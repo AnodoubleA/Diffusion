@@ -5,7 +5,6 @@
 #ifndef DIFFUSION_TEXTENCIPHER_H
 #define DIFFUSION_TEXTENCIPHER_H
 
-#include "../../cipher/structs.h"
 #include "SegmentCipher.h"
 #include "segments/serial_segment_cipher.h"
 #include "../../tool/converter.h"

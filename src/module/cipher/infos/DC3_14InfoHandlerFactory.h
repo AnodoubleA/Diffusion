@@ -9,23 +9,24 @@
 
 namespace lc {
     class DC3_14InfoHandlerFactory : public AbstractInfoHandlerFactory {
-    protected:
-        AbstractInfoHandler* newTextHandler(int version) override {
-            switch (version) {
-                case 0:
-                case 1:
-                    return new TextInfoHandler_DC314_V1();
+    public:
+        InfoHandler* getHandler(int serial, int version, int type) override {
+            if (version == -1) {
+                if (type == CO::TEXT) {
+                    return new DC3_14TextInfoHandler();
+                }
+                return new DC3_14FileInfoHandler();
             }
-            return nullptr;
-        }
-
-        AbstractInfoHandler* newFileHandler(int version) override {
             switch (version) {
                 case 0:
                 case 1:
+                    if (type == CO::TEXT) {
+                        return new TextInfoHandler_DC314_V1();
+                    }
                     return new FileInfoHandler_DC314_V1();
             }
-            return nullptr;
+            //TODO add exception
+            throw DiffusionException("");
         }
     };
 }

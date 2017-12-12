@@ -8,12 +8,13 @@
 #include <memory.h>
 #include "../info_handler.h"
 #include "../InfoHeader.h"
+#include "../InfoHandlerFactory.h"
 
 namespace lc {
-    class HeaderInfoHandler : public AbstractInfoHandler {
+    class HeaderInfoHandler : public InfoHandler {
     public:
 
-        HeaderInfoHandler(InfoReader* reader) : reader(reader) {
+        HeaderInfoHandler(InfoReader* reader = nullptr) : reader(reader) {
 
         }
 
@@ -21,7 +22,10 @@ namespace lc {
             InfoHeader IH = getInfoHeader();
             memset(buf, 0, length());
             memcpy(buf, IH.header(), IH.size());
-            return IH.size();
+            InfoHandler* handler = InfoHandlerFactory::defaultFactory().getHandler(IH.identity(), 1, type());
+            handler->write(buf + IH.size(), info);
+            delete handler;
+            return length();
         }
 
         int read(byte* buf, CipherInfo& info) throw(DiffusionException) {
@@ -35,7 +39,10 @@ namespace lc {
             }
             int version = buf[IH.size()];
             //TODO get handler by version
-            return IH.size() + 1;
+            InfoHandler* handler = InfoHandlerFactory::defaultFactory().getHandler(IH.identity(), version, type());
+            handler->read(buf + IH.size(), info);
+            delete handler;
+            return length();
         }
 
     protected:

@@ -35,8 +35,8 @@ namespace lc {
     }
 
 
-    void KeyHandlerFactory::clear() {
-        std::map<int, KeyHandlerFactory*>::iterator it = cache.begin();
+    void KeyHandlerFactory::clearAll() {
+        auto it = cache.begin();
         while (it++ != cache.end()) {
             it->second->clear();
         }

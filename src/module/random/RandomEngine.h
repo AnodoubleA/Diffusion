@@ -15,9 +15,14 @@ namespace lc {
         virtual void next(byte accept[], int length) = 0;
 
         virtual byte next() = 0;
+
+        /**
+         * Get a size of this engine's seed need.
+         * @return Need's seed size.
+         */
+        virtual int needSeed() = 0;
     };
 };
-}
 
 
 #endif //DIFFUSION_RANDOMENGINE_H

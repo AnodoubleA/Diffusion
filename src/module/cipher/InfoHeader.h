@@ -22,7 +22,7 @@ namespace lc {
 
         virtual const int size() = 0;
 
-        virtual const int identity() = 0;
+        virtual constexpr int identity() = 0;
 
         static InfoHeader& DC3_14();
     } IH;
@@ -41,7 +41,7 @@ namespace lc {
             return 6;
         }
 
-        const int identity() override {
+        constexpr int identity() override {
             return 1;
         }
     };

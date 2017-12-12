@@ -5,6 +5,8 @@
 #ifndef DIFFUSION_RANDOM_H
 #define DIFFUSION_RANDOM_H
 
+#include "../../core/types.h"
+
 namespace lc{
 
     class Random {

@@ -7,8 +7,13 @@
 namespace lc {
     class Consts {
     public:
-        static const int ENCIPHER = 1;
-        static const int DECIPHER = 0;
+        static const int ENCIPHER            = 1 << 0;
+        static const int DECIPHER            = 1 << 1;
+        static const int PADDING             = 1 << 2;
+        static const int MULTICORE           = 1 << 3;
+        static const int GPU                 = 1 << 4;
+        static const int TEXT = 0;
+        static const int FILE = 1;
     };
 
     class Algorithms {
